@@ -1,21 +1,21 @@
 # build output
-client/dist/
+apps/client/dist/
 
 # generated types
-client/.astro/
+apps/client/.astro/
 
 # dependencies
-client/node_modules/
+node_modules/
 
 # logs
-client/npm-debug.log*
-client/yarn-debug.log*
-client/yarn-error.log*
-client/pnpm-debug.log*
+apps/client/npm-debug.log*
+apps/client/yarn-debug.log*
+apps/client/yarn-error.log*
+apps/client/pnpm-debug.log*
 
 # environment variables
-client/.env
-client/.env.production
+apps/client/.env
+apps/client/.env.production
 
 # macOS-specific files
-client/.DS_Store
+apps/client/.DS_Store
