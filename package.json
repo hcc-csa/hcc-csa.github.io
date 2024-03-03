@@ -10,7 +10,12 @@
     "turbo": "^1.12.4"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "dev:client": "cd apps/client && npm run dev",
+    "dev:api": "cd apps/api && python manage.py runserver"
   },
   "keywords": [],
   "author": "",
