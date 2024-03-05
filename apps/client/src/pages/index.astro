@@ -1,12 +1,39 @@
 ---
 import Layout from '@layouts/Layout.astro'
 import Header from '@components/Header.astro'
+import FlexContainer from '@components/FlexContainer.astro'
 import Hero from '@layouts/Hero.astro'
-
 ---
 
 <Layout title='Computer Science Association'>
   <Hero>
     <Header page="home"></Header>
+    <!-- <element class="absolute top-[50px] right-[-300px] z-[4] w-75%">
+      <img class="w-75%" src="/images/Rocket.png" alt="Rocket">
+  </element> -->
+      <FlexContainer direction="col" gap={8} zIndex="5">
+        <h1 class="text-4xl sm:text-7xl font-extrabold leading-snug text-white">
+          Building Tomorrow's <br />
+          <div class="bg-gradient-to-b text-teal-400 text-shadow-csa inline-block">
+            Tech Leaders
+          </div> Today
+        </h1>
+        <h3 class="max-w-xl text-md mt-5 text-white leading-8 text-sm sm:text-base">
+          At <b>CSA</b>, we train, prepare, and unite students for the rapidly changing technological landscape, ensuring they lead as <b>pioneers of new technologies</b>.
+        </h3>
+        <buttons class="flex flex-col sm:flex-row  gap-5 mt-10">
+          <button class="bg-teal-400 px-16 py-3 rounded-md font-bold shadow-csa transform transition duration-200 hover:scale-105">Join Now</button>
+          <button class="border border-white px-6 py-3 rounded-md font-semibold flex items-center justify-center gap-3 transform transition duration-200 hover:scale-105">
+            <ion-icon name="caret-down-circle-outline" class="text-2xl"></ion-icon>
+            Explore
+          </button>
+        </buttons> 
+      </FlexContainer>
   </Hero>
 </Layout>
+
+<style>
+  .text-shadow-csa{
+    text-shadow: 0 0 15px rgba(58, 178, 178, 0.2);
+  }
+</style>

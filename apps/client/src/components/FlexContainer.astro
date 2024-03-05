@@ -1,0 +1,13 @@
+---
+interface Props {
+	direction?: string;
+        gap?: Number;
+        zIndex?: string;
+}
+
+const { direction="row", gap=0, zIndex="auto" } = Astro.props;
+---
+
+<section class=`container max-w-screen-xl h-full flex flex-${direction} gap-${gap} justify-end py-24 z-${zIndex==="auto" ? "auto": "["+zIndex+"]" }`>
+        <slot />
+</section>

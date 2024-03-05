@@ -4,17 +4,29 @@ export default {
   theme: {
     extend: {
       width: {
-        400: '400px'
+        400: '400px',
+        300: '300px',
+        '75%': '75%'
       },
       height: {
-        400: '400px'
+        400: '400px',
+        300: '300px'
       },
       backdropBlur: {
+        '4xl': '100px',
         '5xl': '250px'
+      },
+      boxShadow: {
+        csa: '0 0 15px 0px rgba(58, 178, 178, 0.2)'
+      },
+      dropShadow: {
+        csa: '0 0 15px 0px rgba(58, 178, 178, 0.2)'
       }
     },
     backgroundSize: {
-      '75%': '75%'
+      '100%': '100%',
+      '75%': '75%',
+      '50%': '50%'
     }
   },
   plugins: []
