@@ -14,7 +14,7 @@ export default {
       },
       backdropBlur: {
         '4xl': '100px',
-        '5xl': '250px'
+        '5xl': '200px'
       },
       boxShadow: {
         csa: '0 0 15px 0px rgba(58, 178, 178, 0.2)'

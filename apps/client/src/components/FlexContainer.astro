@@ -1,13 +1,23 @@
 ---
 interface Props {
-	direction?: string;
-        gap?: Number;
-        zIndex?: string;
+  direction?: string
+  gap?: Number
+  zIndex?: string
+  py?: Number
+  px?: Number
 }
 
-const { direction="row", gap=0, zIndex="auto" } = Astro.props;
+const {
+  direction = 'row',
+  gap = 0,
+  zIndex = 'auto',
+  px = 0,
+  py = 0
+} = Astro.props
 ---
 
-<section class=`container max-w-screen-xl h-full flex flex-${direction} gap-${gap} justify-end py-24 z-${zIndex==="auto" ? "auto": "["+zIndex+"]" }`>
-        <slot />
+<section
+  class=`container max-w-screen-xl h-full flex flex-${direction} gap-${gap} justify-end z-${zIndex==="auto" ? "auto": "["+zIndex+"]"} px-${px} py-${py}`
+>
+  <slot />
 </section>
