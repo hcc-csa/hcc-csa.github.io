@@ -1,13 +1,14 @@
 ---
 import Layout from '@layouts/Layout.astro'
 import Header from '@components/Header.astro'
+import Footer from '@components/Footer.astro'
 import EventCard from '@components/EventCard.astro'
 import Hero from '@layouts/Hero.astro'
 ---
 
 <Layout title='Computer Science Association'>
+  <Header page='home' />
   <Hero>
-    <Header page='home' />
     <!-- <element class="absolute top-[50px] right-[-300px] z-[4] w-75%">
       <img class="w-75%" src="/images/Rocket.png" alt="Rocket">
   </element> -->
@@ -15,7 +16,9 @@ import Hero from '@layouts/Hero.astro'
     <section
       class='container z-[5] flex h-full max-w-screen-xl flex-col justify-end gap-8 px-0 py-24'
     >
-      <h1 class='text-4xl font-extrabold leading-snug text-white sm:text-7xl'>
+      <h1
+        class='mt-40 text-4xl font-extrabold leading-snug text-white sm:text-7xl'
+      >
         Building Tomorrow's <br />
         <div
           class='text-shadow-csa inline-block bg-gradient-to-b text-teal-400'
@@ -136,6 +139,7 @@ import Hero from '@layouts/Hero.astro'
       </content>
     </section>
   </main>
+  <Footer />
 </Layout>
 
 <style>
