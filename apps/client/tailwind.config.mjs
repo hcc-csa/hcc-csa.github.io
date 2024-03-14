@@ -3,6 +3,9 @@ export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
     extend: {
+      flexBasis: {
+        '22.5/100': '22.5%'
+      },
       width: {
         400: '400px',
         300: '300px',
