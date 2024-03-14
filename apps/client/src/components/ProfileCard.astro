@@ -1,10 +1,10 @@
 <card
-  class='card sm:basis-22.5/100 relative aspect-square min-w-[250px] shrink-0 grow-0 basis-full cursor-pointer overflow-hidden rounded-md bg-slate-100'
+  class='card sm:basis-22.5/100 relative aspect-square min-w-[250px] shrink-0 grow-0 basis-full overflow-hidden rounded-md bg-slate-100'
 >
   <img
     src='https://i.ibb.co/gSK6gBR/image-43.png'
     alt='event that happened'
-    class='h-full w-full object-cover transition duration-700'
+    class='h-full w-full object-cover transition duration-200'
   />
   <overlay
     class='overlay absolute left-0 top-0 z-[1] h-full w-full bg-gradient-to-t from-black to-transparent'
@@ -19,30 +19,30 @@
     </p>
   </container>
   <socials
-    class='socials absolute bottom-0 left-0 z-[2] flex w-full flex-col p-5 pb-6 opacity-0 transition duration-500'
+    class='socials absolute bottom-0 left-0 z-[2] flex w-full flex-col p-5 pb-6 opacity-0 transition duration-200'
   >
     <line class='h-px w-full bg-slate-200'></line>
     <socialicons
       class='z-[3] mt-2 flex w-full items-center justify-center gap-5'
     >
       <socialicon
-        class='flex aspect-square items-center justify-center rounded-full border border-slate-800 px-1'
+        class='flex aspect-square cursor-pointer items-center justify-center rounded-full border border-slate-800 px-1'
       >
         <ion-icon name='mail' class='text-2xl text-slate-800'></ion-icon>
       </socialicon>
       <socialicon
-        class='flex aspect-square items-center justify-center rounded-full border border-slate-800 px-1'
+        class='flex aspect-square cursor-pointer items-center justify-center rounded-full border border-slate-800 px-1'
       >
         <ion-icon name='logo-discord' class='text-2xl text-slate-800'
         ></ion-icon>
       </socialicon>
       <socialicon
-        class='flex aspect-square items-center justify-center rounded-full border border-slate-800 px-1'
+        class='flex aspect-square cursor-pointer items-center justify-center rounded-full border border-slate-800 px-1'
       >
         <ion-icon name='globe' class='text-2xl text-slate-800'></ion-icon>
       </socialicon>
       <socialicon
-        class='flex aspect-square items-center justify-center rounded-full border border-slate-800 px-1'
+        class='flex aspect-square cursor-pointer items-center justify-center rounded-full border border-slate-800 px-1'
       >
         <ion-icon name='logo-github' class='text-2xl text-slate-800'></ion-icon>
       </socialicon>
@@ -53,7 +53,7 @@
 <style>
   .container {
     width: 1px;
-    transition: all 500ms ease-in-out;
+    transition: all 200ms ease-in-out;
     white-space: nowrap;
     text-align: center;
   }
@@ -70,7 +70,6 @@
   }
 
   .card:hover .container {
-    transition: all 500ms ease-in-out;
     background: transparent;
     color: #1e293b;
     width: 100%;

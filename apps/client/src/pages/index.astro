@@ -4,15 +4,12 @@ import Header from '@components/Header.astro'
 import Footer from '@components/Footer.astro'
 import EventCard from '@components/EventCard.astro'
 import Hero from '@layouts/Hero.astro'
+import AboutUsSection from '@layouts/AboutUsSection.astro'
 ---
 
 <Layout title='Computer Science Association'>
   <Header page='home' />
   <Hero>
-    <!-- <element class="absolute top-[50px] right-[-300px] z-[4] w-75%">
-      <img class="w-75%" src="/images/Rocket.png" alt="Rocket">
-  </element> -->
-    <!-- <FlexContainer direction='col' gap={8} zIndex='5' py={24}> -->
     <section
       class='container z-[5] flex h-full max-w-screen-xl flex-col justify-end gap-8 px-0 py-24'
     >
@@ -48,7 +45,6 @@ import Hero from '@layouts/Hero.astro'
         </button>
       </buttons>
     </section>
-    <!-- </FlexContainer> -->
   </Hero>
   <main
     class='container relative flex w-full max-w-none flex-col items-center px-6 py-12'
@@ -139,11 +135,58 @@ import Hero from '@layouts/Hero.astro'
       </content>
     </section>
   </main>
-  <Footer />
+  <AboutUsSection>
+    <section
+      class='container z-[5] flex h-full max-w-screen-xl flex-col justify-between gap-8 px-0 py-12 md:flex-row md:gap-0'
+    >
+      <div class='flex h-full w-full flex-col md:w-2/6'>
+        <header
+          class='flex w-full items-center gap-3 font-extrabold text-slate-300'
+        >
+          <h2 class='text-xl tracking-widest text-teal-400'># ABOUT US</h2>
+        </header>
+        <h1 class='mt-3 text-9xl leading-none'>“</h1>
+        <h1 class='-mt-16 text-4xl font-bold'>
+          Innovation distinguishes between a Leader & a Follower
+        </h1>
+        <h4 class='font-sm mt-2 italic'>- Steve Jobs</h4>
+      </div>
+      <div
+        class='letter ml-auto flex h-full w-full flex-col items-center py-12 md:w-2/6'
+      >
+        <p>
+          <b>Welcome to the CSA website!</b>
+          <br /><br /> Join our community of innovators and explore exciting programs
+          and activities designed to inspire and equip you for the future of technology.
+          Led by our dedicated Executive Board, we offer engaging events virtually
+          for your convenience. Your participation matters – let's make this semester
+          a success together. Have fun, stay safe, and let us pioneer the STEM world!
+          <br /><br />To the future of innovation,<br /><b
+            ><i> President,<br /> CSA</i></b
+          >
+        </p>
+        <button
+          class='mt-10 flex max-w-96 transform items-center justify-center gap-3 rounded-md border-2 border-white px-6 py-3 font-semibold text-white transition duration-200 hover:scale-105'
+        >
+          Learn More
+          <ion-icon name='arrow-forward-circle-outline' class='text-2xl'
+          ></ion-icon>
+        </button>
+      </div>
+    </section>
+  </AboutUsSection>
 </Layout>
+<Footer />
 
 <style>
   .text-shadow-csa {
     text-shadow: 0 0 15px rgba(58, 178, 178, 0.2);
+  }
+
+  .letter {
+    background-image: url('/images/outline.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 40px;
   }
 </style>
