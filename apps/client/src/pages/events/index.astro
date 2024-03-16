@@ -1,0 +1,194 @@
+---
+import Layout from '@layouts/Layout.astro'
+import Header from '@components/Header.astro'
+import Hero from '@layouts/Hero.astro'
+import EventCard from '@components/EventCard.astro'
+import Footer from '@components/Footer.astro'
+
+const SEMESTER = 'Fall'
+const YEAR = new Date().getFullYear()
+---
+
+<Layout title='Computer Science Association'>
+  <Header page='events' />
+  <Hero>
+    <section
+      class='container relative z-[5] mt-20 flex h-full max-w-screen-xl flex-col justify-end gap-8 px-0 py-24'
+    >
+      <h1 class='text-4xl font-extrabold leading-snug text-white sm:text-7xl'>
+        Events / {SEMESTER}
+        <div
+          class='text-shadow-csa inline-block bg-gradient-to-b text-teal-400'
+        >
+          {YEAR}
+        </div>
+      </h1>
+      <h3
+        class='text-md mt-5 max-w-xl text-sm leading-8 text-white sm:text-base'
+      >
+        Explore our exciting lineup of <b>events</b> designed to foster learning,
+        <b>collaboration</b>, and <b>innovation</b> within the CSA community. There's
+        something for everyone to <b>engage</b> with and grow their passion for technology.
+      </h3>
+      <buttons class='mt-10 flex flex-col gap-5 sm:flex-row'>
+        <button
+          class='transform rounded-md bg-teal-400 px-16 py-3 font-bold shadow-csa transition duration-200 hover:scale-105'
+          >Join Now</button
+        >
+        <button
+          class='flex transform items-center justify-center gap-3 rounded-md border border-white px-6 py-3 font-semibold transition duration-200 hover:scale-105'
+        >
+          <ion-icon name='caret-down-circle-outline' class='text-2xl'
+          ></ion-icon>
+          Explore
+        </button>
+      </buttons>
+    </section>
+  </Hero>
+
+  <main
+    class='container relative flex w-full max-w-none flex-col items-center px-6 py-12'
+  >
+    <section
+      class='container relative z-[5] flex h-full max-w-screen-xl flex-col items-center gap-8'
+    >
+      <searchbar
+        class='absolute left-0 top-[-75px] flex h-[60px] w-full items-center gap-3 rounded-md bg-white px-6 py-3 shadow-md'
+      >
+        <ion-icon
+          name='search-outline'
+          class='text-2xl font-extrabold text-slate-800'></ion-icon>
+        <input
+          type='text'
+          placeholder='Search for events'
+          class='h-full flex-1 text-slate-800 outline-none'
+        />
+        <ion-icon
+          name='filter-outline'
+          class='text-2xl font-extrabold text-slate-800'></ion-icon>
+        <keys class='flex hidden gap-3 md:block'>
+          <kbd
+            class='rounded-md border border-slate-400 px-2 py-1 font-mono text-slate-700 shadow-md'
+            >Ctrl</kbd
+          >
+          <kbd
+            class='rounded-md border border-slate-400 px-2 py-1 font-mono text-slate-700 shadow-md'
+            >K</kbd
+          >
+        </keys>
+      </searchbar>
+      <header
+        class='mt-5 flex w-full items-center justify-between gap-3 font-extrabold text-slate-300'
+      >
+        <h2 class='text-xl tracking-widest'># NEXT EVENT</h2>
+        <tag class='flex h-full items-center gap-3'>
+          <ion-icon
+            name='alarm-outline'
+            class='text-2xl font-extrabold text-slate-800'></ion-icon>
+          <h2 class='flex gap-2 text-xl font-extrabold text-slate-800'>
+            STARTS IN <div class='text-teal-400'>2 DAYS</div>
+          </h2>
+        </tag>
+      </header>
+      <content class='flex w-full flex-col justify-between md:flex-row'>
+        <section
+          class='container z-[5] flex h-full w-full flex-col justify-end gap-2 px-0 md:gap-8'
+        >
+          <h1
+            class='text-4xl font-extrabold leading-snug text-slate-800 sm:text-5xl'
+          >
+            Deep Fake Technology
+          </h1>
+        </section>
+      </content>
+      <content class='flex w-full flex-col justify-between gap-14 md:flex-row'>
+        <section
+          class='container z-[5] flex h-full w-1/4 flex-col justify-end gap-2 px-0 md:gap-8'
+        >
+          <img
+            class='w-full'
+            src='https://i.ibb.co/h9Bs2p8/NAFEB232024-1.png'
+            alt='Deep Fake Technology'
+          />
+        </section>
+        <section
+          class='container z-[5] flex h-full w-3/4 flex-col justify-end gap-2 px-0'
+        >
+          <h3 class='font-extrabold text-teal-400'>DATE & TIME</h3>
+          <h3 class='text-slate-800'>
+            <b>February 23, 2024</b> at <b>6:00 pm - 8:00 pm</b>
+          </h3>
+          <h3 class='font-extrabold text-teal-400'>VENUE</h3>
+          <h3 class='text-slate-800'>
+            Houston Community College <br /> Room C 145, <br />West Loop Campus,<br
+            /> West Loop South, <br />Houston, TX
+          </h3>
+          <h3 class='font-extrabold text-teal-400'>DESCRIPTION</h3>
+          <h3 class='text-slate-800'>
+            Are you ready to dive into the world of Artificial Intelligence?
+            Join us for an exclusive event focused on the captivating realm of
+            Deep Fake Technology! Dive into the fascinating intersection of AI
+            and creativity, we present the most awaited collaboration of the
+            year HCC Cyber Club x HCC Computer Science Association (CSA) with
+            the biggest clubs at Houston Community College!
+          </h3>
+          <button
+            class='mt-5 flex max-w-96 items-center justify-center gap-3 rounded-md border-2 border-teal-400 bg-teal-400 px-6 py-3 font-semibold text-white transition duration-200 hover:scale-105'
+          >
+            Register to this Event
+            <ion-icon name='arrow-forward-circle-outline' class='text-2xl'
+            ></ion-icon>
+          </button>
+        </section>
+      </content>
+      <line class='mt-5 h-px w-full bg-slate-200'></line>
+    </section>
+  </main>
+  <main
+    class='container relative flex w-full max-w-none flex-col items-center px-6'
+  >
+    <section
+      class='container relative z-[5] flex h-full max-w-screen-xl flex-col items-center gap-8'
+    >
+      <header
+        class='flex w-full items-center gap-3 font-extrabold text-slate-300'
+      >
+        <h2 class='text-xl tracking-widest'># UPCOMING EVENTS</h2>
+      </header>
+      <cards class='flex w-full flex-wrap justify-between gap-5 px-2'>
+        <EventCard />
+        <EventCard />
+        <EventCard />
+        <EventCard />
+        <EventCard />
+        <EventCard />
+        <EventCard />
+      </cards>
+      <line class='mt-5 h-px w-full bg-slate-200'></line>
+    </section>
+  </main>
+  <main
+    class='container relative mt-11 flex w-full max-w-none flex-col items-center px-6'
+  >
+    <section
+      class='container relative z-[5] flex h-full max-w-screen-xl flex-col items-center gap-8'
+    >
+      <header
+        class='flex w-full items-center gap-3 font-extrabold text-slate-300'
+      >
+        <h2 class='text-xl tracking-widest'># PAST EVENTS</h2>
+      </header>
+      <cards class='flex w-full flex-wrap justify-between gap-5 px-2'>
+        <EventCard />
+        <EventCard />
+        <EventCard />
+        <EventCard />
+        <EventCard />
+        <EventCard />
+        <EventCard />
+      </cards>
+      <line class='mt-5 h-px w-full bg-slate-200'></line>
+    </section>
+  </main>
+  <Footer />
+</Layout>

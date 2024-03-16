@@ -21,3 +21,5 @@ apps/client/.env.production
 apps/client/.DS_Store
 
 .venv
+#braging files
+.VSCodeCounter/
