@@ -19,3 +19,5 @@ apps/client/.env.production
 
 # macOS-specific files
 apps/client/.DS_Store
+
+.venv
