@@ -6,5 +6,5 @@
 
 * {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  scroll-behavior: smooth;
+  scroll-behavior: smooth !important;
 }

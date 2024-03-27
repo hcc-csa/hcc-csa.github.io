@@ -60,15 +60,19 @@ import AboutUsSection from '@layouts/AboutUsSection.astro'
         <controls class='flex gap-3'>
           <ion-icon
             name='chevron-back-circle-outline'
-            class='cursor-pointer text-3xl text-slate-300'></ion-icon>
+            class='cursor-pointer text-3xl text-slate-300'
+            onclick='cardsScrollLeft()'></ion-icon>
           <ion-icon
             name='chevron-forward-circle-outline'
-            class='cursor-pointer text-3xl text-slate-300'></ion-icon>
+            class='cursor-pointer text-3xl text-slate-300'
+            onclick='cardsScrollRight()'></ion-icon>
         </controls>
       </header>
       <cards
-        class='flex w-full justify-between gap-5 overflow-x-auto px-2 py-6'
+        class='cards flex w-full justify-between gap-5 overflow-x-auto px-2 py-6'
       >
+        <EventCard />
+        <EventCard />
         <EventCard />
         <EventCard />
         <EventCard />
@@ -190,3 +194,17 @@ import AboutUsSection from '@layouts/AboutUsSection.astro'
     padding: 40px;
   }
 </style>
+
+<script is:inline>
+  function cardsScrollLeft() {
+    // Adjust scroll position to the left by a specific amount (e.g., 300px)
+    document.querySelector('.cards').scrollLeft -=
+      document.querySelector('.cards').clientWidth
+  }
+
+  function cardsScrollRight() {
+    // Adjust scroll position to the right by a specific amount (e.g., 300px)
+    document.querySelector('.cards').scrollLeft +=
+      document.querySelector('.cards').clientWidth
+  }
+</script>
