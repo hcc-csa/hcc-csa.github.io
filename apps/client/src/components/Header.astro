@@ -9,6 +9,51 @@ const { page } = Astro.props
 <nav
   class='csa-navbar fixed left-1/2 z-[9999] h-16 w-full -translate-x-1/2 transform backdrop-blur-sm'
 >
+  <respnav
+    id='navigation'
+    class='dark-overlay pointer-events-none absolute left-0 top-0 flex h-screen w-full flex-col px-6 pt-28 opacity-0 transition duration-300 ease-in-out md:hidden'
+  >
+    <container
+      class='is-align-self-auto h-18 mx-auto flex w-full transform flex-col justify-center'
+    >
+      <div class='z-5 mx-auto flex w-full max-w-screen-xl flex-col'>
+        <a
+          href='/'
+          class=`cursor-pointer text-xl ${page=="home" ? "font-bold" : ""} group transition duration-300`
+        >
+          Home
+        </a>
+        <line class='my-5 h-px w-full bg-slate-200 opacity-10'></line>
+        <a
+          href='/events/'
+          class=`cursor-pointer text-xl ${page=="events" ? "font-bold" : ""} group transition duration-300`
+        >
+          Events
+        </a>
+        <line class='my-5 h-px w-full bg-slate-200 opacity-10'></line>
+        <a
+          href='/gallery/'
+          class=`cursor-pointer text-xl ${page=="gallery" ? "font-bold" : ""} group transition duration-300`
+        >
+          Gallery
+        </a>
+        <line class='my-5 h-px w-full bg-slate-200 opacity-10'></line>
+        <a
+          href='/about/'
+          class=`cursor-pointer text-xl ${page=="about" ? "font-bold" : ""} group transition duration-300`
+        >
+          About
+        </a>
+        <line class='my-5 h-px w-full bg-slate-200 opacity-10'></line>
+        <a
+          href='/contact/'
+          class=`cursor-pointer text-xl ${page=="contact" ? "font-bold" : ""} group transition duration-300`
+        >
+          Contact
+        </a>
+      </div>
+    </container>
+  </respnav>
   <container
     class='is-align-self-auto h-18 mx-auto mt-[-5px] flex w-full transform items-center justify-center px-6 py-6 md:px-12'
   >
@@ -68,10 +113,34 @@ const { page } = Astro.props
             class='block h-0.5 max-w-0 bg-white transition-all duration-500 group-hover:max-w-full'
           ></span>
         </a>
-        <button class='md:hidden'>
-          <ion-icon name='menu-outline' class='text-2xl'></ion-icon>
+        <button
+          class='flex h-6 w-6 origin-center transform items-center justify-center transition duration-300 ease-in-out md:hidden'
+          id='hamburger-btn'
+        >
+          <ion-icon name='menu-outline' id='hamburger' class='text-2xl'
+          ></ion-icon>
         </button>
       </div>
     </div>
   </container>
 </nav>
+
+<script is:inline>
+  let isOpen = false
+
+  const hamburgerBtn = document.getElementById('hamburger-btn')
+  const hamburger = document.getElementById('hamburger')
+  const navigation = document.getElementById('navigation')
+
+  hamburgerBtn.addEventListener('click', () => {
+    if (!isOpen) {
+      hamburger.setAttribute('name', 'close-outline')
+    } else {
+      hamburger.setAttribute('name', 'menu-outline')
+    }
+    isOpen = !isOpen
+    navigation.classList.toggle('opacity-0')
+    navigation.classList.toggle('pointer-events-none')
+    hamburgerBtn.classList.toggle('rotate-90')
+  })
+</script>

@@ -41,25 +41,30 @@ import { ScrollObserver } from 'astro-scroll-observer'
   <body class='min-h-screen text-white'>
     <slot />
     <style is:global>
-      .csa-navbar {
-        transition: 500ms;
-        background-color: rgba(0, 0, 0, 0.75);
-        z-index: 9999 !important;
-      }
+      @media screen and (min-width: 768px) {
+        .csa-navbar {
+          transition: 500ms;
+          background-color: rgba(0, 0, 0, 0.75);
+          z-index: 9999 !important;
+        }
 
-      html[data-is-top='true'] .csa-navbar {
-        background-color: transparent;
-        backdrop-filter: blur(0px);
-      }
+        html[data-is-top='true'] .csa-navbar {
+          background-color: transparent;
+          backdrop-filter: blur(0px);
+        }
 
-      html[data-is-scrolling-up='true'][data-is-top='false'] .csa-navbar {
-        background-color: rgba(0, 0, 0, 0.75);
-      }
+        html[data-is-scrolling-up='true'][data-is-top='false'] .csa-navbar {
+          background-color: rgba(0, 0, 0, 0.75);
+        }
 
-      html[data-is-scrolling-up='false'][data-is-top='false'] .csa-navbar {
-        translate: 0 -3rem;
-        /* background-color: transparent;
+        html[data-is-scrolling-up='false'][data-is-top='false'] .csa-navbar {
+          translate: 0 -3rem;
+          /* background-color: transparent;
         backdrop-filter: blur(0px); */
+        }
+      }
+      .dark-overlay {
+        background-color: rgba(0, 0, 0, 0.9);
       }
     </style>
   </body>
