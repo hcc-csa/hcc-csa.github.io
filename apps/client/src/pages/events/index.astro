@@ -4,6 +4,7 @@ import Header from '@components/Header.astro'
 import Hero from '@layouts/Hero.astro'
 import EventCard from '@components/EventCard.astro'
 import Footer from '@components/Footer.astro'
+import { events } from '@utilities/dummyData'
 
 const SEMESTER = 'Fall'
 const YEAR = new Date().getFullYear()
@@ -156,13 +157,7 @@ const YEAR = new Date().getFullYear()
         <h2 class='text-xl tracking-widest'># UPCOMING EVENTS</h2>
       </header>
       <cards class='flex w-full flex-wrap justify-between gap-5 px-2'>
-        <EventCard />
-        <EventCard />
-        <EventCard />
-        <EventCard />
-        <EventCard />
-        <EventCard />
-        <EventCard />
+        {events && events.map((event) => <EventCard data={event} />)}
       </cards>
       <line class='mt-5 h-px w-full bg-slate-200'></line>
     </section>
@@ -179,13 +174,7 @@ const YEAR = new Date().getFullYear()
         <h2 class='text-xl tracking-widest'># PAST EVENTS</h2>
       </header>
       <cards class='flex w-full flex-wrap justify-between gap-5 px-2'>
-        <EventCard />
-        <EventCard />
-        <EventCard />
-        <EventCard />
-        <EventCard />
-        <EventCard />
-        <EventCard />
+        {events && events.map((event) => <EventCard data={event} />)}
       </cards>
       <line class='mt-5 h-px w-full bg-slate-200'></line>
     </section>

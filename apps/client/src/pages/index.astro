@@ -5,6 +5,8 @@ import Footer from '@components/Footer.astro'
 import EventCard from '@components/EventCard.astro'
 import Hero from '@layouts/Hero.astro'
 import AboutUsSection from '@layouts/AboutUsSection.astro'
+
+import { events } from '@utilities/dummyData'
 ---
 
 <Layout title='Computer Science Association'>
@@ -68,14 +70,33 @@ import AboutUsSection from '@layouts/AboutUsSection.astro'
             onclick='cardsScrollRight()'></ion-icon>
         </controls>
       </header>
-      <cards
-        class='cards flex w-full justify-between gap-5 overflow-x-auto px-2 py-6'
-      >
-        <EventCard />
-        <EventCard />
-        <EventCard />
-        <EventCard />
-        <EventCard />
+      <cards class='cards flex w-full gap-5 overflow-x-auto px-2 py-6'>
+        {events && events.map((event) => <EventCard data={event} />)}
+        <card
+          class='relative mt-2 h-64 w-full min-w-[320px] max-w-[410px] flex-1 cursor-pointer rounded-md p-6 shadow-md transition duration-200 hover:scale-[1.02] sm:min-w-[400px] md:min-w-[400px]'
+        >
+          <element class='absolute left-1/2 top-0 z-0 w-full -translate-x-1/2'>
+            <img class='w-full' src='/images/card_grid.svg' alt='card grid' />
+          </element>
+          <content class='relative z-[1] flex h-full flex-col gap-2'>
+            <h1 class='text-2xl font-extrabold text-slate-800'>
+              Access our event list to view all our exclusive <span
+                class='text-teal-400'
+              >
+                workshops & events
+              </span>
+              this semester!
+            </h1>
+            <a
+              href='/events'
+              class='ml-auto mt-auto flex w-fit items-center justify-center gap-3 rounded-md border-2 border-teal-400 px-6 py-3 font-semibold text-teal-400 transition duration-200'
+            >
+              All Events
+              <ion-icon name='arrow-forward-circle-outline' class='text-2xl'
+              ></ion-icon>
+            </a>
+          </content>
+        </card>
       </cards>
       <line class='h-px w-full bg-slate-200'></line>
     </section>

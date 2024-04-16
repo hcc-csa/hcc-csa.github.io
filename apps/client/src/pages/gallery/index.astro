@@ -4,6 +4,8 @@ import Header from '@components/Header.astro'
 import Hero from '@layouts/Hero.astro'
 import GalleryCard from '@components/GalleryCard.astro'
 import Footer from '@components/Footer.astro'
+
+import { albums } from '@utilities/dummyData'
 ---
 
 <Layout title='CSA | Gallery'>
@@ -85,13 +87,7 @@ import Footer from '@components/Footer.astro'
       class='container relative z-[5] flex h-full max-w-screen-xl flex-col items-center gap-8'
     >
       <cards class='flex w-full flex-wrap gap-5 px-2'>
-        <GalleryCard />
-        <GalleryCard />
-        <GalleryCard />
-        <GalleryCard />
-        <GalleryCard />
-        <GalleryCard />
-        <GalleryCard />
+        {albums && albums.map((album) => <GalleryCard data={album} />)}
       </cards>
     </section>
   </main>

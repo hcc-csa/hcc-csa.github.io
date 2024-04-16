@@ -1,0 +1,38 @@
+.container {
+  width: 1px;
+  transition: all 200ms ease-in-out;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.card:hover img {
+  opacity: 0;
+}
+
+.card:hover .overlay {
+  opacity: 0;
+}
+.card:hover .socials {
+  opacity: 1;
+}
+
+.card:hover .container {
+  background: transparent;
+  color: #1e293b;
+  width: 100%;
+  transform: translate(0, -25%);
+}
+
+.card:hover .name {
+  color: rgb(45 212 191);
+  font-size: x-large;
+}
+
+.card:hover .post {
+  font-weight: 700;
+  font-size: large;
+}
+
+.card:hover .quote {
+  display: block;
+}

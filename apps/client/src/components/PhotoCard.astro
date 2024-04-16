@@ -1,8 +1,12 @@
+---
+const { link } = Astro.props
+---
+
 <card
-  class='card sm:basis-22.5/100 relative aspect-square min-w-[250px] shrink-0 grow-0 basis-full cursor-pointer overflow-hidden rounded-md'
+  class='card relative aspect-square min-w-[250px] shrink-0 grow-0 basis-full cursor-pointer overflow-hidden rounded-md sm:basis-22.5/100'
 >
   <img
-    src='https://i.ibb.co/F3fWMBM/image-2024-03-13-182426986.png'
+    src={link}
     alt='event that happened'
     class='h-full w-full object-cover transition duration-700'
   />

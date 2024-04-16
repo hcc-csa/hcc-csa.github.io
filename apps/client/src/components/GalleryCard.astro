@@ -1,20 +1,26 @@
+---
+import { format } from 'fecha'
+const { data } = Astro.props
+---
+
 <card
-  class='card sm:basis-22.5/100 relative aspect-square min-w-[250px] shrink-0 grow-0 basis-full cursor-pointer overflow-hidden rounded-md'
+  onclick=`goToEvent('${data.id}')`
+  class='card relative aspect-square min-w-[250px] shrink-0 grow-0 basis-full cursor-pointer overflow-hidden rounded-md sm:basis-22.5/100'
 >
   <img
-    src='https://i.ibb.co/F3fWMBM/image-2024-03-13-182426986.png'
+    src=`${data.photos[0]}`
     alt='event that happened'
     class='h-full w-full object-cover transition duration-700'
   />
   <overlay
     class='overlay absolute left-0 top-0 z-[1] flex h-full w-full flex-col justify-end bg-gradient-to-t from-black to-transparent p-5'
   >
-    <h3 class='font-semibold'>CSA Hackathon</h3>
+    <h3 class='font-semibold'>{data.title}</h3>
     <div class='flex items-center gap-2 text-xs'>
       <ion-icon name='calendar-outline'></ion-icon>
-      CSA Hackathon
+      {format(data.date, 'MMMM YYYY')}
     </div>
-    <p class='text-sm font-bold'>5 photos</p>
+    <p class='text-sm font-bold'>{data.photos.length} photos</p>
   </overlay>
 </card>
 
@@ -23,3 +29,9 @@
     transform: scale(1.2);
   }
 </style>
+
+<script is:inline>
+  function goToEvent(id) {
+    window.location.href = `/gallery/${id}`
+  }
+</script>

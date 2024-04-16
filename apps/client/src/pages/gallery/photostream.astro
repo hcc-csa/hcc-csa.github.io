@@ -4,6 +4,10 @@ import Header from '@components/Header.astro'
 import Hero from '@layouts/Hero.astro'
 import Footer from '@components/Footer.astro'
 import PhotoCard from '../../components/PhotoCard.astro'
+
+import { albums } from '@utilities/dummyData'
+
+const photoLinks = albums.flatMap((album) => album.photos)
 ---
 
 <Layout title='CSA | Gallery'>
@@ -87,13 +91,14 @@ import PhotoCard from '../../components/PhotoCard.astro'
       class='container relative z-[5] flex h-full max-w-screen-xl flex-col items-center gap-8'
     >
       <cards class='flex w-full flex-wrap gap-5 px-2'>
+        <!-- <PhotoCard />
         <PhotoCard />
         <PhotoCard />
         <PhotoCard />
         <PhotoCard />
         <PhotoCard />
-        <PhotoCard />
-        <PhotoCard />
+        <PhotoCard /> -->
+        {photoLinks.map((photoLink) => <PhotoCard link={photoLink} />)}
       </cards>
     </section>
   </main>

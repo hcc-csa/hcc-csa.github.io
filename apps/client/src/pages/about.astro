@@ -2,9 +2,10 @@
 import Layout from '@layouts/Layout.astro'
 import Header from '@components/Header.astro'
 import Footer from '@components/Footer.astro'
-import EventCard from '@components/EventCard.astro'
 import Hero from '@layouts/Hero.astro'
 import ProfileCard from '../components/ProfileCard.astro'
+
+import { officials } from '@utilities/dummyData'
 ---
 
 <Layout title='Computer Science Association'>
@@ -137,13 +138,7 @@ import ProfileCard from '../components/ProfileCard.astro'
         </h1>
       </content>
       <cards class='flex w-full flex-wrap gap-5 px-2'>
-        <ProfileCard />
-        <ProfileCard />
-        <ProfileCard />
-        <ProfileCard />
-        <ProfileCard />
-        <ProfileCard />
-        <ProfileCard />
+        {officials.map((official) => <ProfileCard data={official} />)}
       </cards>
     </section>
   </main>

@@ -1,4 +1,19 @@
+---
+import { format } from 'fecha'
+const { data } = Astro.props
+
+function truncateString(str: string, num: number) {
+  if (str.length > num) {
+    return str.slice(0, num) + '...'
+  } else {
+    return str
+  }
+}
+---
+
 <card
+  id='card'
+  onclick=`goToEvent('${data.id}')`
   class='relative mt-2 h-64 w-full min-w-[320px] max-w-[410px] flex-1 cursor-pointer rounded-md p-6 shadow-md transition duration-200 hover:scale-[1.02] sm:min-w-[400px] md:min-w-[400px]'
 >
   <element class='absolute left-1/2 top-0 z-0 w-full -translate-x-1/2'>
@@ -9,19 +24,24 @@
       class='flex w-fit items-center gap-2 rounded-md bg-teal-400 px-2 py-2 text-sm font-medium'
     >
       <ion-icon name='calendar-outline' class='text-xl'></ion-icon>
-      <span>Mar 18</span>
+      <span>{data && format(data.event_date, 'MMM D')}</span>
       <span>•</span>
-      <span>5601 W Loop S, Houston</span>
+      <span>{data && data.short_address}</span>
     </tag>
-    <h1 class='text-2xl font-extrabold text-slate-800'>Deep Fake Technology</h1>
+    <h1 class='text-2xl font-extrabold text-slate-800'>{data && data.title}</h1>
     <p class='text-sm font-light text-slate-800'>
-      Dive into the fascinating intersection of AI and creativity, we present
-      the most awaited collaboration of the ....
+      {data && truncateString(data.description, 150)}
     </p>
     <img
       class='h-16 w-full rounded-md object-cover object-bottom'
-      src='https://i.ibb.co/h9Bs2p8/NAFEB232024-1.png'
-      alt='Deep Fake Technology'
+      src={data && data.image}
+      alt={data && data.title}
     />
   </content>
 </card>
+
+<script is:inline>
+  function goToEvent(id) {
+    window.location.href = `/events/${id}`
+  }
+</script>
