@@ -23,3 +23,5 @@ apps/client/.DS_Store
 .venv
 #braging files
 .VSCodeCounter/
+
+apps/api/api/.env

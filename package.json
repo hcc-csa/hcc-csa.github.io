@@ -15,7 +15,9 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "dev:client": "cd apps/client && npm run dev",
-    "dev:api": "cd apps/api && python manage.py runserver"
+    "dev:api": "cd apps/api && python3 manage.py runserver",
+    "dev:makemigrations": "cd apps/api && python3 manage.py makemigrations server",
+    "dev:migrate": "cd apps/api && python3 manage.py migrate server"
   },
   "keywords": [],
   "author": "",
