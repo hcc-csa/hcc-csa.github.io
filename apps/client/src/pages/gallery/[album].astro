@@ -4,6 +4,21 @@ import Header from '@components/Header.astro'
 import Hero from '@layouts/Hero.astro'
 import Footer from '@components/Footer.astro'
 import PhotoCard from '../../components/PhotoCard.astro'
+
+import { albums } from '@utilities/dummyData'
+// import { format } from 'fecha'
+
+export async function getStaticPaths() {
+  return albums.map((album) => {
+    return {
+      params: { album: album.id },
+      props: { albumData: album }
+    }
+  })
+}
+
+const { album } = Astro.params
+const { albumData } = Astro.props
 ---
 
 <Layout title='CSA | Gallery'>
@@ -25,12 +40,10 @@ import PhotoCard from '../../components/PhotoCard.astro'
         <div
           class='text-shadow-csa inline-block bg-gradient-to-b text-teal-400'
         >
-          CSA Hackathon
+          {albumData.title}
         </div>
         <h3 class='text-md max-w-xl text-sm leading-8 text-white sm:text-base'>
-          Lorem ipsum dolor sit amet. Est deserunt consequatur id soluta aliquam
-          ut fuga recusandae in dolores eaque qui eligendi architecto et
-          incidunt officia.
+          {albumData.description}
         </h3>
       </h1>
     </section>
@@ -43,13 +56,7 @@ import PhotoCard from '../../components/PhotoCard.astro'
       class='container relative z-[5] flex h-full max-w-screen-xl flex-col items-center gap-8'
     >
       <cards class='flex w-full flex-wrap gap-5 px-2'>
-        <PhotoCard />
-        <PhotoCard />
-        <PhotoCard />
-        <PhotoCard />
-        <PhotoCard />
-        <PhotoCard />
-        <PhotoCard />
+        {albumData.photos.map((photoLink) => <PhotoCard link={photoLink} />)}
       </cards>
     </section>
   </main>

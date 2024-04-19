@@ -4,6 +4,10 @@ import Header from '@components/Header.astro'
 import Hero from '@layouts/Hero.astro'
 import Footer from '@components/Footer.astro'
 import PhotoCard from '../../components/PhotoCard.astro'
+
+import { albums } from '@utilities/dummyData'
+
+const photoLinks = albums.flatMap((album) => album.photos)
 ---
 
 <Layout title='CSA | Gallery'>
@@ -25,9 +29,10 @@ import PhotoCard from '../../components/PhotoCard.astro'
         technology together.
       </h3>
       <buttons class='mt-5 flex flex-col gap-5 sm:flex-row'>
-        <button
+        <a
+          href='/register'
           class='transform rounded-md bg-teal-400 px-16 py-3 font-bold shadow-csa transition duration-200 hover:scale-105'
-          >Join Now</button
+          >Join Now</a
         >
         <button
           class='flex transform items-center justify-center gap-3 rounded-md border border-white px-6 py-3 font-semibold transition duration-200 hover:scale-105'
@@ -87,13 +92,14 @@ import PhotoCard from '../../components/PhotoCard.astro'
       class='container relative z-[5] flex h-full max-w-screen-xl flex-col items-center gap-8'
     >
       <cards class='flex w-full flex-wrap gap-5 px-2'>
+        <!-- <PhotoCard />
         <PhotoCard />
         <PhotoCard />
         <PhotoCard />
         <PhotoCard />
         <PhotoCard />
-        <PhotoCard />
-        <PhotoCard />
+        <PhotoCard /> -->
+        {photoLinks.map((photoLink) => <PhotoCard link={photoLink} />)}
       </cards>
     </section>
   </main>

@@ -24,9 +24,10 @@ import Footer from '@components/Footer.astro'
         simply to say hello. We're here to connect!
       </h3>
       <buttons class='mt-5 flex flex-col gap-5 sm:flex-row'>
-        <button
+        <a
+          href='/register'
           class='transform rounded-md bg-teal-400 px-16 py-3 font-bold shadow-csa transition duration-200 hover:scale-105'
-          >Join Now</button
+          >Join Now</a
         >
         <button
           class='flex transform items-center justify-center gap-3 rounded-md border border-white px-6 py-3 font-semibold transition duration-200 hover:scale-105'
@@ -117,15 +118,21 @@ import Footer from '@components/Footer.astro'
       />
       <h4 class='mt-10 font-bold text-teal-400'>Follow Us On</h4>
       <div class='mt-5 flex w-fit gap-5'>
-        <ion-icon
-          name='logo-github'
-          class='cursor-pointer text-4xl text-slate-500'></ion-icon>
-        <ion-icon
-          name='logo-linkedin'
-          class='cursor-pointer text-4xl text-slate-500'></ion-icon>
-        <ion-icon
-          name='logo-discord'
-          class='cursor-pointer text-4xl text-slate-500'></ion-icon>
+        <a href='https://github.com/HCC-Computer-Science-Association'>
+          <ion-icon
+            name='logo-github'
+            class='cursor-pointer text-3xl text-teal-400'></ion-icon>
+        </a>
+        <a href='https://www.linkedin.com/company/compscia/'>
+          <ion-icon
+            name='logo-linkedin'
+            class='cursor-pointer text-3xl text-teal-400'></ion-icon>
+        </a>
+        <a href='https://discord.gg/5Q3zCFMtaK'>
+          <ion-icon
+            name='logo-discord'
+            class='cursor-pointer text-3xl text-teal-400'></ion-icon>
+        </a>
       </div>
     </section>
   </main>

@@ -3,6 +3,20 @@ import Layout from '@layouts/Layout.astro'
 import Header from '@components/Header.astro'
 import Hero from '@layouts/Hero.astro'
 import Footer from '@components/Footer.astro'
+import { events } from '@utilities/dummyData'
+import { format } from 'fecha'
+
+export async function getStaticPaths() {
+  return events.map((event) => {
+    return {
+      params: { event: event.id },
+      props: { eventData: event }
+    }
+  })
+}
+
+const { event } = Astro.params
+const { eventData } = Astro.props
 ---
 
 <Layout title='Computer Science Association'>
@@ -24,7 +38,7 @@ import Footer from '@components/Footer.astro'
         <div
           class='text-shadow-csa inline-block bg-gradient-to-b text-teal-400'
         >
-          Deep Fake Technology
+          {eventData.title}
         </div>
       </h1>
     </section>
@@ -45,7 +59,21 @@ import Footer from '@components/Footer.astro'
             name='alarm-outline'
             class='text-2xl font-extrabold text-slate-800'></ion-icon>
           <h2 class='flex gap-2 text-xl font-extrabold text-slate-800'>
-            STARTS IN <div class='text-teal-400'>2 DAYS</div>
+            {
+              eventData.event_date.getTime() - new Date().getTime() >= 0
+                ? 'STARTS IN '
+                : ''
+            }
+            <div class='text-teal-400'>
+              {
+                eventData.event_date.getTime() - new Date().getTime() >= 0
+                  ? Math.floor(
+                      (eventData.event_date.getTime() - new Date().getTime()) /
+                        (1000 * 60 * 60 * 24)
+                    ) + ' DAYS'
+                  : 'EVENT OVER'
+              }
+            </div>
           </h2>
         </tag>
       </header>
@@ -56,7 +84,7 @@ import Footer from '@components/Footer.astro'
           <h1
             class='text-4xl font-extrabold leading-snug text-slate-800 sm:text-5xl'
           >
-            Deep Fake Technology
+            {eventData.title}
           </h1>
         </section>
       </content>
@@ -75,29 +103,29 @@ import Footer from '@components/Footer.astro'
         >
           <h3 class='font-extrabold text-teal-400'>DATE & TIME</h3>
           <h3 class='text-slate-800'>
-            <b>February 23, 2024</b> at <b>6:00 pm - 8:00 pm</b>
+            <b>{format(eventData.event_date, 'MMMM D, YYYY')}</b> at <b
+              >{format(eventData.event_date, 'hh:mm a')} - {
+                eventData.time_end
+              }</b
+            >
           </h3>
           <h3 class='font-extrabold text-teal-400'>VENUE</h3>
           <h3 class='text-slate-800'>
-            Houston Community College <br /> Room C 145, <br />West Loop Campus,<br
-            /> West Loop South, <br />Houston, TX
+            {eventData.address}
           </h3>
           <h3 class='font-extrabold text-teal-400'>DESCRIPTION</h3>
           <h3 class='text-slate-800'>
-            Are you ready to dive into the world of Artificial Intelligence?
-            Join us for an exclusive event focused on the captivating realm of
-            Deep Fake Technology! Dive into the fascinating intersection of AI
-            and creativity, we present the most awaited collaboration of the
-            year HCC Cyber Club x HCC Computer Science Association (CSA) with
-            the biggest clubs at Houston Community College!
+            {eventData.description}
           </h3>
-          <button
+          <a
+            href=`${eventData.registration_link}`
+            target='_blank'
             class='mt-5 flex max-w-96 items-center justify-center gap-3 rounded-md border-2 border-teal-400 bg-teal-400 px-6 py-3 font-semibold text-white transition duration-200 hover:scale-105'
           >
             Register to this Event
             <ion-icon name='arrow-forward-circle-outline' class='text-2xl'
             ></ion-icon>
-          </button>
+          </a>
         </section>
       </content>
     </section>

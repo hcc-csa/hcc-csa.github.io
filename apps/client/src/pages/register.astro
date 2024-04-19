@@ -1,0 +1,115 @@
+---
+import Layout from '@layouts/Layout.astro'
+import Header from '@components/Header.astro'
+import Hero from '@layouts/Hero.astro'
+import GalleryCard from '@components/GalleryCard.astro'
+import Footer from '@components/Footer.astro'
+---
+
+<Layout title='CSA | Register'>
+  <Header page='register' />
+  <Hero>
+    <section
+      class='container relative z-[5] mt-10 flex h-full max-w-screen-xl flex-col justify-end gap-8 px-0 py-24'
+    >
+      <h1 class='text-4xl font-extrabold leading-snug text-white sm:text-7xl'>
+        <div
+          class='text-shadow-csa inline-block bg-gradient-to-b text-teal-400'
+        >
+          Register to CSA
+        </div>
+      </h1>
+      <h3
+        class='text-md mt-5 max-w-xl text-sm leading-8 text-white sm:text-base'
+      >
+        At <b>CSA</b>, we train, prepare, and unite students for the rapidly
+        changing technological landscape, ensuring they lead as <b
+          >pioneers of new technologies</b
+        >.
+      </h3>
+    </section>
+  </Hero>
+  <main
+    class='container relative flex w-full max-w-none flex-col items-center px-6 py-12'
+  >
+    <section
+      class='container relative z-[5] flex h-full max-w-screen-xl flex-col gap-8'
+    >
+      <form
+        class='flex h-fit w-full max-w-screen-sm flex-col justify-between gap-3 rounded-md bg-white p-6 shadow-md xl:top-[-350px]'
+      >
+        <label class='-mb-2 ml-2 text-slate-800'>Full Name:</label>
+        <input
+          type='text'
+          placeholder='John Smith'
+          required
+          class='w-full flex-1 rounded-md border border-slate-300 px-3 py-4 text-slate-800 outline-none'
+        />
+        <label class='-mb-2 ml-2 text-slate-800'>HCC ID:</label>
+        <input
+          type='text'
+          placeholder='W12345689'
+          required
+          class='w-full flex-1 rounded-md border border-slate-300 px-3 py-4 text-slate-800 outline-none'
+        />
+        <label class='-mb-2 ml-2 text-slate-800'>Email:</label>
+        <input
+          type='email'
+          placeholder='W12345689@student.hccs.edu'
+          required
+          class='w-full flex-1 rounded-md border border-slate-300 px-3 py-4 text-slate-800 outline-none'
+        />
+        <label class='-mb-2 ml-2 text-slate-800'>Phone Number (optional):</label
+        >
+        <input
+          type='number'
+          placeholder='1234567890'
+          class='w-full flex-1 rounded-md border border-slate-300 px-3 py-4 text-slate-800 outline-none'
+        />
+        <label class='-mb-2 ml-2 text-slate-800'>Current GPA:</label>
+        <div
+          class='mb-4 flex items-center rounded-md border border-slate-300 px-3 py-4'
+        >
+          <input
+            id='gpa'
+            type='checkbox'
+            class='h-5 w-5 rounded-md focus:ring-indigo-500 focus:ring-offset-white'
+          />
+          <label for='gpa' class='ml-3 block text-slate-500'
+            >GPA 2.5 or higher</label
+          >
+        </div>
+        <label class='-mb-2 ml-2 text-slate-800'>Major:</label>
+        <input
+          type='text'
+          placeholder='Computer Science B.S.'
+          required
+          class='w-full flex-1 rounded-md border border-slate-300 px-3 py-4 text-slate-800 outline-none'
+        />
+        <label class='-mb-2 ml-2 text-slate-800'>Graduation Date:</label>
+        <input
+          type='date'
+          required
+          class='w-full flex-1 rounded-md border border-slate-300 px-3 py-4 text-slate-800 outline-none'
+        />
+        <label class='-mb-2 ml-2 text-slate-800'
+          >Personal Message (optional):</label
+        >
+        <textarea
+          name=''
+          cols='30'
+          rows='8'
+          placeholder='Is there anything you want to let us know or ask?'
+          class='w-full flex-1 rounded-md border border-slate-300 px-3 py-4 text-slate-800 outline-none outline-none'
+        ></textarea>
+        <input
+          type='submit'
+          placeholder='Subject'
+          value='Submit'
+          class='w-full flex-1 rounded-md border bg-teal-400 px-3 py-4 font-extrabold text-white outline-none'
+        />
+      </form>
+    </section>
+  </main>
+  <Footer />
+</Layout>
