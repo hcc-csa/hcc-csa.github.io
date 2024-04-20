@@ -1,0 +1,75 @@
+---
+import Layout from '@layouts/Layout.astro'
+import Header from '@components/Header.astro'
+import Hero from '@layouts/Hero.astro'
+import Footer from '@components/Footer.astro'
+import PhotoCard from '../../components/PhotoCard.astro'
+
+import { resources } from '@utilities/dummyData'
+// import { format } from 'fecha'
+
+export async function getStaticPaths() {
+  return resources.map((resource) => {
+    return {
+      params: { resource: resource.slug },
+      props: { resourceData: resource }
+    }
+  })
+}
+
+const { resource } = Astro.params
+const { resourceData } = Astro.props
+---
+
+<Layout title='CSA | Resources'>
+  <Header page='resources' />
+  <Hero>
+    <section
+      class='container relative z-[5] mt-20 flex h-full max-w-screen-xl flex-col justify-end gap-8 px-0 py-12'
+    >
+      <buttons class='mt-10 flex flex-col gap-5 sm:flex-row'>
+        <a
+          class='flex transform items-center justify-center gap-3 rounded-md font-semibold transition duration-200 hover:scale-105'
+          href='/resources'
+        >
+          <ion-icon name='arrow-back-outline' class='text-2xl'></ion-icon>
+          Back to Resources
+        </a>
+      </buttons>
+      <h1 class='text-4xl font-extrabold leading-snug text-white sm:text-7xl'>
+        <div
+          class='text-shadow-csa inline-block bg-gradient-to-b text-teal-400'
+        >
+          {resourceData.type}
+        </div>
+        <h3 class='text-md max-w-xl text-sm leading-8 text-white sm:text-base'>
+          {resourceData.description}
+        </h3>
+      </h1>
+    </section>
+  </Hero>
+
+  {
+    resourceData.resource_collection &&
+      resourceData.resource_collection.map((resources) => (
+        <main class='container relative flex w-full max-w-none flex-col items-center px-6 py-12'>
+          <section class='container relative z-[5] flex h-full max-w-screen-xl flex-col gap-8'>
+            <h3 class='text-3xl font-bold text-teal-400'>{resources.title}</h3>
+            <links class='flex flex-col'>
+              {resources.resource_materials &&
+                resources.resource_materials.map((urls) => (
+                  <a
+                    href={urls.link}
+                    target='_blank'
+                    class='w-full rounded-sm border px-12 py-6 text-lg font-medium text-slate-800'
+                  >
+                    ► {urls.title}
+                  </a>
+                ))}
+            </links>
+          </section>
+        </main>
+      ))
+  }
+  <Footer />
+</Layout>

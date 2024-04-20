@@ -162,3 +162,66 @@ export const albums = [
     ]
   }
 ]
+
+export const resources = [
+  {
+    slug: 'computer-science',
+    type: 'Computer Science',
+    description: `Level up your CS fundamentals! Explore this section brimming with essential resources on core computer science concepts, programming languages, algorithms, and data structures. Whether you're a seasoned coder or just starting out, you'll find valuable materials to solidify your understanding and sharpen your programming skills.`,
+    image: 'https://i.ibb.co/mtwBH7c/what-is-computer-science-banner1600.jpg',
+    resource_collection: [
+      {
+        id: 'R000000001',
+        title: 'Getting Started',
+        resource_materials: [
+          { title: 'Base CS', link: 'https://medium.com/basecs' },
+          { title: 'Tutorials Point', link: 'https://www.tutorialspoint.com/' }
+        ]
+      },
+      {
+        id: 'R000000002',
+        title: 'Computer Architechture',
+        resource_materials: [
+          {
+            title: 'Computer Architechture',
+            link: 'https://github.com/the-akira/computer_science_web_resources/blob/master/db/computer_architecture.md'
+          },
+          {
+            title: 'Operating Systems',
+            link: 'https://github.com/the-akira/Computer-Science-Resources/blob/master/db/operating_systems.md'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    slug: 'platforms',
+    type: 'Platforms',
+    description: `Take your coding skills to the next level! This section offers a curated selection of resources specifically designed to help you excel in competitive programming, hone your hacking abilities, and conquer the vast landscape of MOOCs (Massive Open Online Courses).  Dive in, challenge yourself, and unlock your full coding potential!`,
+    image: 'https://images.pexels.com/photos/276452/pexels-photo-276452.jpeg',
+    resource_collection: [
+      {
+        id: 'R000000003',
+        title: 'Competitive Programming',
+        resource_materials: [
+          { title: 'Hackerrank', link: 'https://www.hackerrank.com' },
+          { title: 'CodeChef', link: 'https://www.codechef.com' }
+        ]
+      },
+      {
+        id: 'R000000004',
+        title: 'Information & Security',
+        resource_materials: [
+          {
+            title: 'Beginner Bug Bounty Hunters resources',
+            link: 'https://github.com/nahamsec/Resources-for-Beginner-Bug-Bounty-Hunters'
+          },
+          {
+            title: 'Web Hacking',
+            link: 'https://github.com/the-akira/Computer-Science-Resources/blob/master/db/web_hacking.md'
+          }
+        ]
+      }
+    ]
+  }
+]
