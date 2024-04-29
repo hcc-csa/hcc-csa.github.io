@@ -15,7 +15,7 @@ class Event(models.Model):
     album_id = models.ForeignKey('Album', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.title
 
     def event_has_passed(self):
         return self.event_date < timezone.now()
@@ -24,11 +24,17 @@ class Event(models.Model):
 class Album(models.Model):
     media_id = models.ForeignKey("Media", on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return self.title
 
 
 class Media(models.Model):
     name = models.CharField(max_length=200)
     url = models.URLField(max_length=200)
+    
+    def __str__(self):
+        return self.name
 
 
 class Officials(models.Model):
@@ -45,6 +51,9 @@ class Officials(models.Model):
 
     quote = models.CharField(max_length=100)
     social_id = models.ForeignKey("Social", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
 
 
 class Social(models.Model):
