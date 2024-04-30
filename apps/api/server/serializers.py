@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Event, Album, Media, Officials, Social, Subscribers
+from .models import Event, Album, Media, Official, Social, Subscribers
 
 class EventSerializer(serializers.ModelSerializer):
   class Meta:

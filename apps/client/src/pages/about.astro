@@ -6,6 +6,13 @@ import Hero from '@layouts/Hero.astro'
 import ProfileCard from '../components/ProfileCard.astro'
 
 import { officials } from '@utilities/dummyData'
+
+const isProd = import.meta.env.PROD
+const isDev = import.meta.env.DEV
+
+const response = await fetch(`http://127.0.0.1:8000/server/event`)
+const data = await response.json()
+console.log(data)
 ---
 
 <Layout title='Computer Science Association'>

@@ -37,7 +37,7 @@ class Media(models.Model):
         return self.name
 
 
-class Officials(models.Model):
+class Official(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
 
@@ -62,6 +62,11 @@ class Social(models.Model):
     github = models.URLField(max_length=200)
     discord = models.URLField(max_length=200)
     linkedid = models.URLField(max_length=200)
+    
+    official_id = models.ForeignKey('Official', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{Official_id} social media'
 
 
 class Subscribers(models.Model):
