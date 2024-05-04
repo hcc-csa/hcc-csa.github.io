@@ -16,10 +16,4 @@ class Migration(migrations.Migration):
             old_name='Officials',
             new_name='Official',
         ),
-        migrations.AddField(
-            model_name='social',
-            name='official_id',
-            field=models.ForeignKey(default=django.utils.timezone.now, on_delete=django.db.models.deletion.CASCADE, to='server.official'),
-            preserve_default=False,
-        ),
     ]

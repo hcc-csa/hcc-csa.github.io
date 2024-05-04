@@ -40,33 +40,39 @@ class Media(models.Model):
 class Official(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-
-    POSITION_CHOICES = (
-        ("P1", "Position 1"),
-        ("P2", "Position 2"),
-        ("P3", "Position 3"),
-    )
-
-    position = models.CharField(max_length=50, choices=POSITION_CHOICES)
-
     quote = models.CharField(max_length=100)
-    social_id = models.ForeignKey("Social", on_delete=models.CASCADE)
+
+    position = models.ForeignKey("Official_Position", on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
 
-class Social(models.Model):
-    email = models.EmailField(max_length=200)
-    website = models.URLField(max_length=200)
-    github = models.URLField(max_length=200)
-    discord = models.URLField(max_length=200)
-    linkedid = models.URLField(max_length=200)
-    
-    official_id = models.ForeignKey('Official', on_delete=models.CASCADE)
+class Official_Position(models.Model):
+    position = models.CharField(max_length=50)
 
     def __str__(self):
-        return f'{Official_id} social media'
+        return self.position
+
+
+class Official_Social(models.Model):
+    email = models.EmailField(max_length=200)
+
+    SOCIAL_CHOICES = (
+        ("website", "Website"),
+        ("github", "Github"),
+        ("discord", "Discord"),
+        ("linkedin", "Linkedin"),
+    )
+
+    social = models.CharField(max_length=200, choices=SOCIAL_CHOICES)
+    URL = models.URLField(max_length=200)
+
+    
+    official_id = models.OneToOneField('Official', on_delete=models.CASCADE, primary_key=True)
+
+    def __str__(self):
+        return f'{self.official_id} {self.social}'
 
 
 class Subscribers(models.Model):
