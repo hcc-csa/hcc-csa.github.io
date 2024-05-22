@@ -54,16 +54,21 @@ const YEAR = new Date().getFullYear()
     <section
       class='container relative z-[5] flex h-full max-w-screen-xl flex-col items-center gap-8'
     >
-      <searchbar
+      <form
+        id='event-searchform'
         class='absolute left-0 top-[-75px] flex h-[60px] w-full items-center gap-3 rounded-md bg-white px-6 py-3 shadow-md'
       >
         <ion-icon
           name='search-outline'
           class='text-2xl font-extrabold text-slate-800'></ion-icon>
         <input
-          type='text'
+          type='search'
+          required
+          min='2'
+          name='search'
           placeholder='Search for events'
           class='h-full flex-1 text-slate-800 outline-none'
+          id='event-search'
         />
         <ion-icon
           name='filter-outline'
@@ -78,7 +83,7 @@ const YEAR = new Date().getFullYear()
             >K</kbd
           >
         </keys>
-      </searchbar>
+      </form>
       <header
         class='mt-5 flex w-full items-center justify-between gap-3 font-extrabold text-slate-300'
       >
@@ -182,3 +187,39 @@ const YEAR = new Date().getFullYear()
   </main>
   <Footer />
 </Layout>
+
+<script>
+  import DOMPurify from 'dompurify'
+
+  document.addEventListener('keydown', handleKeyDown)
+
+  function handleKeyDown(event) {
+    // Check for CTRL+K combination
+    if (event.ctrlKey && event.key === 'k') {
+      // Prevent default behavior (browser specific actions)
+      event.preventDefault()
+
+      // Focus the desired input box
+      const inputElement = document.getElementById('event-search') // Replace with your actual input element ID
+      if (inputElement) {
+        inputElement.focus()
+      } else {
+        console.error('Input element with ID "event-search" not found')
+      }
+    }
+  }
+
+  const form = document.getElementById('event-searchform')
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const formData = new FormData(form)
+    const searchTerm = DOMPurify.sanitize(formData.get('search')?.toString())
+    // console.log(searchTerm)
+    if (!searchTerm || searchTerm.length === 0) return
+
+    const url = new URL('events/search', window.location.origin)
+
+    url.searchParams.set('q', searchTerm)
+    window.location.assign(url.toString())
+  })
+</script>
