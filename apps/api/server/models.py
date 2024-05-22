@@ -7,12 +7,12 @@ from django.utils import timezone
 
 class Event(models.Model):
     title = models.CharField(max_length=50)
-    description = models.CharField(max_length=200)
+    description = models.TextField(max_length=1000)
     event_date = models.DateTimeField()
     time_end = models.DateTimeField()
-    address = models.CharField(max_length=100)
+    address = models.ForeignKey('Address', on_delete=models.CASCADE)
     registration_link = models.URLField(max_length=200)
-    album_id = models.ForeignKey('Album', on_delete=models.CASCADE)
+    album = models.ForeignKey('Album', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -20,9 +20,8 @@ class Event(models.Model):
     def event_has_passed(self):
         return self.event_date < timezone.now()
 
-
 class Album(models.Model):
-    media_id = models.ForeignKey("Media", on_delete=models.CASCADE)
+    media = models.ManyToManyField("Media")
     title = models.CharField(max_length=50)
     
     def __str__(self):
@@ -78,3 +77,14 @@ class Official_Social(models.Model):
 class Subscribers(models.Model):
     email = models.EmailField(max_length=200)
     created_at = timezone.now()
+
+class Address(models.Model):
+    suite = models.CharField(max_length=200)
+    campus = models.CharField(max_length=200, default='')
+    street = models.CharField(max_length=200)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    state_code = models.CharField(max_length=2)
+
+    def __str__(self):
+        return self.campus
