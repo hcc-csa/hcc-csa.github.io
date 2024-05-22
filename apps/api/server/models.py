@@ -12,7 +12,7 @@ class Event(models.Model):
     time_end = models.DateTimeField()
     address = models.ForeignKey('Address', on_delete=models.CASCADE)
     registration_link = models.URLField(max_length=200)
-    album_id = models.ForeignKey('Album', on_delete=models.CASCADE)
+    album = models.ForeignKey('Album', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -21,7 +21,7 @@ class Event(models.Model):
         return self.event_date < timezone.now()
 
 class Album(models.Model):
-    media_id = models.ForeignKey("Media", on_delete=models.CASCADE)
+    media = models.ManyToManyField("Media")
     title = models.CharField(max_length=50)
     
     def __str__(self):
