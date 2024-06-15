@@ -6,13 +6,15 @@ import EventCard from '@components/EventCard.astro'
 import Hero from '@layouts/Hero.astro'
 import AboutUsSection from '@layouts/AboutUsSection.astro'
 
-import { events } from '@utilities/dummyData'
+import { sanityClient } from 'sanity:client'
 
-const eventss = await fetch(`${import.meta.env.API_URL}/server/event`).then(
-  (data) => data.json()
+const events = await sanityClient.fetch(
+  `*[_type == "event" && defined(slug)] | order(date desc)`
 )
 
-console.log(eventss)
+const upcomingEvents = events
+  .filter((event) => new Date(event.date) > new Date())
+  .sort((a, b) => new Date(a.date) - new Date(b.date))
 ---
 
 <Layout title='Computer Science Association'>
@@ -77,8 +79,13 @@ console.log(eventss)
             onclick='cardsScrollRight()'></ion-icon>
         </controls>
       </header>
-      <cards class='cards flex w-full gap-5 overflow-x-auto px-2 py-6'>
-        {events && events.map((event) => <EventCard data={event} />)}
+      <cards
+        class=`${ upcomingEvents.length > 2 ? "justify-between" : "justify-left"} flex w-full flex-wrap gap-5 px-2`
+      >
+        {
+          upcomingEvents &&
+            upcomingEvents.map((event: any) => <EventCard data={event} />)
+        }
         <card
           class='relative mt-2 h-64 w-full min-w-[320px] max-w-[410px] flex-1 cursor-pointer rounded-md p-6 shadow-md transition duration-200 hover:scale-[1.02] sm:min-w-[400px] md:min-w-[400px]'
         >
@@ -198,13 +205,14 @@ console.log(eventss)
             ><i> President,<br /> CSA</i></b
           >
         </p>
-        <button
+        <a
+          href='/about'
           class='mt-10 flex max-w-96 transform items-center justify-center gap-3 rounded-md border-2 border-white px-6 py-3 font-semibold text-white transition duration-200 hover:scale-105'
         >
           Learn More
           <ion-icon name='arrow-forward-circle-outline' class='text-2xl'
           ></ion-icon>
-        </button>
+        </a>
       </div>
     </section>
   </AboutUsSection>

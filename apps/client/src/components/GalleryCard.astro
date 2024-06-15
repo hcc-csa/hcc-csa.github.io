@@ -1,14 +1,24 @@
 ---
 import { format } from 'fecha'
+
+import imageUrlBuilder from '@sanity/image-url'
+import { sanityClient } from 'sanity:client'
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
+const builder = imageUrlBuilder(sanityClient)
+
+function urlFor(source: SanityImageSource) {
+  return builder.image(source)
+}
+
 const { data } = Astro.props
 ---
 
 <card
-  onclick=`goToEvent('${data.id}')`
+  onclick=`goToEvent('${data.slug.current}')`
   class='card relative aspect-square min-w-[250px] shrink-0 grow-0 basis-full cursor-pointer overflow-hidden rounded-md sm:basis-22.5/100'
 >
   <img
-    src=`${data.photos[0]}`
+    src=`${data && urlFor(data.photos[0])}`
     alt='event that happened'
     class='h-full w-full object-cover transition duration-700'
   />
@@ -18,7 +28,7 @@ const { data } = Astro.props
     <h3 class='font-semibold'>{data.title}</h3>
     <div class='flex items-center gap-2 text-xs'>
       <ion-icon name='calendar-outline'></ion-icon>
-      {format(data.date, 'MMMM YYYY')}
+      {format(new Date(data.eventDate), 'MMMM YYYY')}
     </div>
     <p class='text-sm font-bold'>{data.photos.length} photos</p>
   </overlay>

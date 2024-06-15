@@ -5,13 +5,17 @@ import Hero from '@layouts/Hero.astro'
 import Footer from '@components/Footer.astro'
 import PhotoCard from '../../components/PhotoCard.astro'
 
-import { albums } from '@utilities/dummyData'
+import { sanityClient } from 'sanity:client'
+
 // import { format } from 'fecha'
 
 export async function getStaticPaths() {
-  return albums.map((album) => {
+  const albums = await sanityClient.fetch(
+    `*[_type == "album" && defined(slug)]`
+  )
+  return albums.map((album: { slug: any }) => {
     return {
-      params: { album: album.id },
+      params: { album: album.slug.current },
       props: { albumData: album }
     }
   })

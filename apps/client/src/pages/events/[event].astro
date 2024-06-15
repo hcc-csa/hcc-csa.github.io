@@ -3,16 +3,28 @@ import Layout from '@layouts/Layout.astro'
 import Header from '@components/Header.astro'
 import Hero from '@layouts/Hero.astro'
 import Footer from '@components/Footer.astro'
-import { events } from '@utilities/dummyData'
+import imageUrlBuilder from '@sanity/image-url'
+// import { events } from '@utilities/dummyData'
 import { format } from 'fecha'
+import { sanityClient } from 'sanity:client'
 
 export async function getStaticPaths() {
-  return events.map((event) => {
+  const events = await sanityClient.fetch(
+    `*[_type == "event" && defined(slug)]`
+  )
+  return events.map((event: { slug: any }) => {
     return {
-      params: { event: event.id },
+      params: { event: event.slug.current },
       props: { eventData: event }
     }
   })
+}
+
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
+const builder = imageUrlBuilder(sanityClient)
+
+function urlFor(source: SanityImageSource) {
+  return builder.image(source)
 }
 
 const { event } = Astro.params
@@ -60,15 +72,16 @@ const { eventData } = Astro.props
             class='text-2xl font-extrabold text-slate-800'></ion-icon>
           <h2 class='flex gap-2 text-xl font-extrabold text-slate-800'>
             {
-              eventData.event_date.getTime() - new Date().getTime() >= 0
+              new Date(eventData.date).getTime() - new Date().getTime() >= 0
                 ? 'STARTS IN '
                 : ''
             }
             <div class='text-teal-400'>
               {
-                eventData.event_date.getTime() - new Date().getTime() >= 0
+                new Date(eventData.date).getTime() - new Date().getTime() >= 0
                   ? Math.floor(
-                      (eventData.event_date.getTime() - new Date().getTime()) /
+                      (new Date(eventData.date).getTime() -
+                        new Date().getTime()) /
                         (1000 * 60 * 60 * 24)
                     ) + ' DAYS'
                   : 'EVENT OVER'
@@ -94,8 +107,8 @@ const { eventData } = Astro.props
         >
           <img
             class='w-full'
-            src='https://i.ibb.co/h9Bs2p8/NAFEB232024-1.png'
-            alt='Deep Fake Technology'
+            src={eventData && urlFor(eventData.image)}
+            alt={eventData.title}
           />
         </section>
         <section
@@ -103,9 +116,9 @@ const { eventData } = Astro.props
         >
           <h3 class='font-extrabold text-teal-400'>DATE & TIME</h3>
           <h3 class='text-slate-800'>
-            <b>{format(eventData.event_date, 'MMMM D, YYYY')}</b> at <b
-              >{format(eventData.event_date, 'hh:mm a')} - {
-                eventData.time_end
+            <b>{format(new Date(eventData.date), 'MMMM D, YYYY')}</b> at <b
+              >{format(new Date(eventData.date), 'hh:mm a')} - {
+                format(new Date(eventData.time_end), 'hh:mm a')
               }</b
             >
           </h3>

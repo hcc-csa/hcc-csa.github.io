@@ -4,8 +4,15 @@ import Header from '@components/Header.astro'
 import Hero from '@layouts/Hero.astro'
 import GalleryCard from '@components/GalleryCard.astro'
 import Footer from '@components/Footer.astro'
+import { sanityClient } from 'sanity:client'
 
-import { albums } from '@utilities/dummyData'
+// import { albums } from '@utilities/dummyData'
+
+const albums = await sanityClient.fetch(
+  `*[_type == "album" && defined(slug)] | order(eventDate desc)`
+)
+
+// console.log(albums_tem)
 ---
 
 <Layout title='CSA | Gallery'>

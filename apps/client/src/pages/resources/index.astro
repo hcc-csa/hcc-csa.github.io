@@ -5,7 +5,11 @@ import Hero from '@layouts/Hero.astro'
 import ResourceCard from '@components/ResourceCard.astro'
 import Footer from '@components/Footer.astro'
 
-import { resources } from '@utilities/dummyData'
+import { sanityClient } from 'sanity:client'
+
+const resources = await sanityClient.fetch(
+  `*[_type == "resources" && defined(slug)]`
+)
 ---
 
 <Layout title='CSA | Resources'>

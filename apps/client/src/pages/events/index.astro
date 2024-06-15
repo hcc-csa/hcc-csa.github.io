@@ -4,7 +4,38 @@ import Header from '@components/Header.astro'
 import Hero from '@layouts/Hero.astro'
 import EventCard from '@components/EventCard.astro'
 import Footer from '@components/Footer.astro'
-import { events } from '@utilities/dummyData'
+// import { events } from '@utilities/dummyData'
+import imageUrlBuilder from '@sanity/image-url'
+import { sanityClient } from 'sanity:client'
+
+const events = await sanityClient.fetch(
+  `*[_type == "event" && defined(slug)] | order(date desc)`
+)
+
+let upcomingEvents = events.filter((event) => new Date(event.date) > new Date())
+
+if (upcomingEvents.length > 0) {
+  upcomingEvents.sort((a, b) => new Date(a.date) - new Date(b.date))
+} else {
+  upcomingEvents = []
+}
+
+const pastEvents = events
+  .filter((event) => new Date(event.date) <= new Date())
+  .sort((a, b) => new Date(b.date) - new Date(a.date))
+
+// const upcomingEvent = await sanityClient.fetch(
+//   `*[_type == "event" && date > now()] | order(date asc) [0]`
+// )
+const upcomingEvent = upcomingEvents[0] || pastEvents[0]
+
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
+import { format } from 'fecha'
+const builder = imageUrlBuilder(sanityClient)
+
+function urlFor(source: SanityImageSource) {
+  return builder.image(source)
+}
 
 const SEMESTER = 'Fall'
 const YEAR = new Date().getFullYear()
@@ -93,7 +124,23 @@ const YEAR = new Date().getFullYear()
             name='alarm-outline'
             class='text-2xl font-extrabold text-slate-800'></ion-icon>
           <h2 class='flex gap-2 text-xl font-extrabold text-slate-800'>
-            STARTS IN <div class='text-teal-400'>2 DAYS</div>
+            {
+              new Date(upcomingEvent.date).getTime() - new Date().getTime() >= 0
+                ? 'STARTS IN '
+                : ''
+            }
+            <div class='text-teal-400'>
+              {
+                new Date(upcomingEvent.date).getTime() - new Date().getTime() >=
+                0
+                  ? Math.floor(
+                      (new Date(upcomingEvent.date).getTime() -
+                        new Date().getTime()) /
+                        (1000 * 60 * 60 * 24)
+                    ) + ' DAYS'
+                  : 'EVENT OVER'
+              }
+            </div>
           </h2>
         </tag>
       </header>
@@ -104,7 +151,7 @@ const YEAR = new Date().getFullYear()
           <h1
             class='text-4xl font-extrabold leading-snug text-slate-800 sm:text-5xl'
           >
-            Deep Fake Technology
+            {upcomingEvent.title}
           </h1>
         </section>
       </content>
@@ -114,8 +161,8 @@ const YEAR = new Date().getFullYear()
         >
           <img
             class='w-full'
-            src='https://i.ibb.co/h9Bs2p8/NAFEB232024-1.png'
-            alt='Deep Fake Technology'
+            src={upcomingEvent && urlFor(upcomingEvent.image)}
+            alt={upcomingEvent.title}
           />
         </section>
         <section
@@ -123,29 +170,29 @@ const YEAR = new Date().getFullYear()
         >
           <h3 class='font-extrabold text-teal-400'>DATE & TIME</h3>
           <h3 class='text-slate-800'>
-            <b>February 23, 2024</b> at <b>6:00 pm - 8:00 pm</b>
+            <b>{format(new Date(upcomingEvent.date), 'MMMM D, YYYY')}</b> at <b
+              >{format(new Date(upcomingEvent.date), 'hh:mm a')} - {
+                format(new Date(upcomingEvent.time_end), 'hh:mm a')
+              }</b
+            >
           </h3>
           <h3 class='font-extrabold text-teal-400'>VENUE</h3>
           <h3 class='text-slate-800'>
-            Houston Community College <br /> Room C 145, <br />West Loop Campus,<br
-            /> West Loop South, <br />Houston, TX
+            {upcomingEvent.address}
           </h3>
           <h3 class='font-extrabold text-teal-400'>DESCRIPTION</h3>
           <h3 class='text-slate-800'>
-            Are you ready to dive into the world of Artificial Intelligence?
-            Join us for an exclusive event focused on the captivating realm of
-            Deep Fake Technology! Dive into the fascinating intersection of AI
-            and creativity, we present the most awaited collaboration of the
-            year HCC Cyber Club x HCC Computer Science Association (CSA) with
-            the biggest clubs at Houston Community College!
+            {upcomingEvent.description}
           </h3>
-          <button
+          <a
+            href=`${upcomingEvent.registration_link}`
+            target='_blank'
             class='mt-5 flex max-w-96 items-center justify-center gap-3 rounded-md border-2 border-teal-400 bg-teal-400 px-6 py-3 font-semibold text-white transition duration-200 hover:scale-105'
           >
             Register to this Event
             <ion-icon name='arrow-forward-circle-outline' class='text-2xl'
             ></ion-icon>
-          </button>
+          </a>
         </section>
       </content>
       <line class='mt-5 h-px w-full bg-slate-200'></line>
@@ -162,8 +209,13 @@ const YEAR = new Date().getFullYear()
       >
         <h2 class='text-xl tracking-widest'># UPCOMING EVENTS</h2>
       </header>
-      <cards class='flex w-full flex-wrap justify-between gap-5 px-2'>
-        {events && events.map((event) => <EventCard data={event} />)}
+      <cards
+        class=`${ upcomingEvents.length > 2 ? "justify-between" : "justify-left"} flex w-full flex-wrap gap-5 px-2`
+      >
+        {
+          upcomingEvents &&
+            upcomingEvents.map((event: any) => <EventCard data={event} />)
+        }
       </cards>
       <line class='mt-5 h-px w-full bg-slate-200'></line>
     </section>
@@ -179,8 +231,13 @@ const YEAR = new Date().getFullYear()
       >
         <h2 class='text-xl tracking-widest'># PAST EVENTS</h2>
       </header>
-      <cards class='flex w-full flex-wrap justify-between gap-5 px-2'>
-        {events && events.map((event) => <EventCard data={event} />)}
+      <cards
+        class=`flex w-full flex-wrap ${ pastEvents.length > 2 ? "justify-between" : "justify-left"} gap-5 px-2`
+      >
+        {
+          pastEvents &&
+            pastEvents.map((event: any) => <EventCard data={event} />)
+        }
       </cards>
       <line class='mt-5 h-px w-full bg-slate-200'></line>
     </section>
@@ -188,7 +245,7 @@ const YEAR = new Date().getFullYear()
   <Footer />
 </Layout>
 
-<script>
+<!-- <script>
   import DOMPurify from 'dompurify'
 
   document.addEventListener('keydown', handleKeyDown)
@@ -222,4 +279,4 @@ const YEAR = new Date().getFullYear()
     url.searchParams.set('q', searchTerm)
     window.location.assign(url.toString())
   })
-</script>
+</script> -->

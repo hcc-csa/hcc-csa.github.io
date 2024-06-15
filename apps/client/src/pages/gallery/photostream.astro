@@ -4,8 +4,11 @@ import Header from '@components/Header.astro'
 import Hero from '@layouts/Hero.astro'
 import Footer from '@components/Footer.astro'
 import PhotoCard from '../../components/PhotoCard.astro'
+import { sanityClient } from 'sanity:client'
 
-import { albums } from '@utilities/dummyData'
+const albums = await sanityClient.fetch(
+  `*[_type == "album" && defined(slug)] | order(eventDate desc)`
+)
 
 const photoLinks = albums.flatMap((album) => album.photos)
 ---

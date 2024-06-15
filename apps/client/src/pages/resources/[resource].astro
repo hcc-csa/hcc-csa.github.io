@@ -3,16 +3,20 @@ import Layout from '@layouts/Layout.astro'
 import Header from '@components/Header.astro'
 import Hero from '@layouts/Hero.astro'
 import Footer from '@components/Footer.astro'
-import PhotoCard from '../../components/PhotoCard.astro'
 
-import { resources } from '@utilities/dummyData'
+// import { resources } from '@utilities/dummyData'
 // import { format } from 'fecha'
 
+import { sanityClient } from 'sanity:client'
+
 export async function getStaticPaths() {
-  return resources.map((resource) => {
+  const resources = await sanityClient.fetch(
+    `*[_type == "resources" && defined(slug)]`
+  )
+  return resources.map((resource_set: { slug: any }) => {
     return {
-      params: { resource: resource.slug },
-      props: { resourceData: resource }
+      params: { resource: resource_set.slug.current },
+      props: { resourceData: resource_set }
     }
   })
 }
@@ -40,7 +44,7 @@ const { resourceData } = Astro.props
         <div
           class='text-shadow-csa inline-block bg-gradient-to-b text-teal-400'
         >
-          {resourceData.type}
+          {resourceData.title}
         </div>
         <h3 class='text-md max-w-xl text-sm leading-8 text-white sm:text-base'>
           {resourceData.description}
@@ -50,14 +54,14 @@ const { resourceData } = Astro.props
   </Hero>
 
   {
-    resourceData.resource_collection &&
-      resourceData.resource_collection.map((resources) => (
+    resourceData.resource_topics &&
+      resourceData.resource_topics.map((resources) => (
         <main class='container relative flex w-full max-w-none flex-col items-center px-6 py-12'>
           <section class='container relative z-[5] flex h-full max-w-screen-xl flex-col gap-8'>
             <h3 class='text-3xl font-bold text-teal-400'>{resources.title}</h3>
             <links class='flex flex-col'>
-              {resources.resource_materials &&
-                resources.resource_materials.map((urls) => (
+              {resources.resource_links &&
+                resources.resource_links.map((urls) => (
                   <a
                     href={urls.link}
                     target='_blank'

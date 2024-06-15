@@ -1,6 +1,9 @@
 ---
 import { format } from 'fecha'
 const { data } = Astro.props
+import imageUrlBuilder from '@sanity/image-url'
+import { sanityClient } from 'sanity:client'
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
 
 function truncateString(str: string, num: number) {
   if (str.length > num) {
@@ -9,11 +12,17 @@ function truncateString(str: string, num: number) {
     return str
   }
 }
+
+const builder = imageUrlBuilder(sanityClient)
+
+function urlFor(source: SanityImageSource) {
+  return builder.image(source)
+}
 ---
 
 <card
   id='card'
-  onclick=`goToEvent('${data.id}')`
+  onclick=`goToEvent('${data.slug.current}')`
   class='relative mt-2 h-64 w-full min-w-[320px] max-w-[410px] flex-1 cursor-pointer rounded-md p-6 shadow-md transition duration-200 hover:scale-[1.02] sm:min-w-[400px] md:min-w-[400px]'
 >
   <element class='absolute left-1/2 top-0 z-0 w-full -translate-x-1/2'>
@@ -24,9 +33,9 @@ function truncateString(str: string, num: number) {
       class='flex w-fit items-center gap-2 rounded-md bg-teal-400 px-2 py-2 text-sm font-medium'
     >
       <ion-icon name='calendar-outline' class='text-xl'></ion-icon>
-      <span>{data && format(data.event_date, 'MMM D')}</span>
+      <span>{data && format(new Date(data.date), 'MMM D')}</span>
       <span>•</span>
-      <span>{data && data.short_address}</span>
+      <span>{data && truncateString(data.address, 25)}</span>
     </tag>
     <h1 class='text-2xl font-extrabold text-slate-800'>{data && data.title}</h1>
     <p class='text-sm font-light text-slate-800'>
@@ -34,7 +43,7 @@ function truncateString(str: string, num: number) {
     </p>
     <img
       class='h-16 w-full rounded-md object-cover object-bottom'
-      src={data && data.image}
+      src={data && urlFor(data.image)}
       alt={data && data.title}
     />
   </content>

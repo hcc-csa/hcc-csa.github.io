@@ -5,17 +5,17 @@ import Footer from '@components/Footer.astro'
 import Hero from '@layouts/Hero.astro'
 import ProfileCard from '../components/ProfileCard.astro'
 
-import { officials } from '@utilities/dummyData'
-<<<<<<< HEAD
+// import { officials } from '@utilities/dummyData'
+import { sanityClient } from 'sanity:client'
 
-const isProd = import.meta.env.PROD
-const isDev = import.meta.env.DEV
+const officials = await sanityClient.fetch(
+  `*[_type == "official"] | order(level asc)`
+)
 
+// console.log(officials_temp)
 // const response = await fetch(`http://127.0.0.1:8000/server/event`)
 // const data = await response.json()
 // console.log(data)
-=======
->>>>>>> 76f2d277b9863311e2751b6e2565bb35cd8d73f9
 ---
 
 <Layout title='Computer Science Association'>
@@ -149,7 +149,7 @@ const isDev = import.meta.env.DEV
         </h1>
       </content>
       <cards class='flex w-full flex-wrap gap-5 px-2'>
-        {officials.map((official) => <ProfileCard data={official} />)}
+        {officials.map((official: any) => <ProfileCard data={official} />)}
       </cards>
     </section>
   </main>

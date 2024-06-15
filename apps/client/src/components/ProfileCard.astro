@@ -1,4 +1,13 @@
 ---
+import imageUrlBuilder from '@sanity/image-url'
+import { sanityClient } from 'sanity:client'
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
+const builder = imageUrlBuilder(sanityClient)
+
+function urlFor(source: SanityImageSource) {
+  return builder.image(source)
+}
+
 const { data } = Astro.props
 ---
 
@@ -6,7 +15,7 @@ const { data } = Astro.props
   class='card relative aspect-square min-w-[250px] shrink-0 grow-0 basis-full overflow-hidden rounded-md bg-slate-100 sm:basis-22.5/100'
 >
   <img
-    src={`${data.image}`}
+    src={data && urlFor(data.image)}
     alt='event that happened'
     class='h-full w-full object-cover transition duration-200'
   />
@@ -16,7 +25,10 @@ const { data } = Astro.props
   <container
     class='container absolute left-0 top-0 z-[2] flex h-full w-full flex-col justify-end p-5'
   >
-    <h3 class='name text-xl font-extrabold transition-none'>{data.name}</h3>
+    <h3 class='name text-xl font-extrabold transition-none'>
+      {data.first_name}
+      {data.last_name}
+    </h3>
     <p class='post text-sm font-light transition-none'>{data.position}</p>
     <p class='quote mt-5 hidden text-sm font-normal transition-none'>
       ~ {data.quote} ~
@@ -30,9 +42,9 @@ const { data } = Astro.props
       class='z-[3] mt-2 flex w-full items-center justify-center gap-5'
     >
       {
-        data.socials.mail && (
+        data.email && (
           <a
-            href={`mailto:${data.socials.mail}`}
+            href={`mailto:${data.email}`}
             target='_blank'
             class='flex aspect-square cursor-pointer items-center justify-center rounded-full border border-slate-800 px-1'
           >
@@ -41,9 +53,9 @@ const { data } = Astro.props
         )
       }
       {
-        data.socials.discord && (
+        data.discordUsername && (
           <a
-            href={`${data.socials.discord}`}
+            href={`${data.discordUsername}`}
             target='_blank'
             class='flex aspect-square cursor-pointer items-center justify-center rounded-full border border-slate-800 px-1'
           >
@@ -52,9 +64,9 @@ const { data } = Astro.props
         )
       }
       {
-        data.socials.website && (
+        data.website && (
           <a
-            href={`${data.socials.website}`}
+            href={`${data.website}`}
             class='flex aspect-square cursor-pointer items-center justify-center rounded-full border border-slate-800 px-1'
           >
             <ion-icon name='globe' class='text-2xl text-slate-800' />
@@ -62,9 +74,9 @@ const { data } = Astro.props
         )
       }
       {
-        data.socials.github && (
+        data.githubUsername && (
           <a
-            href={`${data.socials.github}`}
+            href={`${data.githubUsername}`}
             class='flex aspect-square cursor-pointer items-center justify-center rounded-full border border-slate-800 px-1'
           >
             <ion-icon name='logo-github' class='text-2xl text-slate-800' />
