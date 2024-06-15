@@ -7,6 +7,8 @@ import Footer from '@components/Footer.astro'
 
 import { sanityClient } from 'sanity:client'
 
+import type { Resources } from '@utilities/sanity.types'
+
 const resources = await sanityClient.fetch(
   `*[_type == "resources" && defined(slug)]`
 )
@@ -57,7 +59,7 @@ const resources = await sanityClient.fetch(
       <cards class='flex w-full flex-wrap gap-5 px-2'>
         {
           resources &&
-            resources.map((resource_type) => (
+            resources.map((resource_type: Resources) => (
               <ResourceCard data={resource_type} />
             ))
         }

@@ -5,12 +5,13 @@ import Hero from '@layouts/Hero.astro'
 import Footer from '@components/Footer.astro'
 import PhotoCard from '../../components/PhotoCard.astro'
 import { sanityClient } from 'sanity:client'
+import type { Album, SanityImageAsset } from '@utilities/sanity.types'
 
 const albums = await sanityClient.fetch(
   `*[_type == "album" && defined(slug)] | order(eventDate desc)`
 )
 
-const photoLinks = albums.flatMap((album) => album.photos)
+const photoLinks = albums.flatMap((album: Album) => album.photos)
 ---
 
 <Layout title='CSA | Gallery'>
@@ -102,7 +103,11 @@ const photoLinks = albums.flatMap((album) => album.photos)
         <PhotoCard />
         <PhotoCard />
         <PhotoCard /> -->
-        {photoLinks.map((photoLink) => <PhotoCard link={photoLink} />)}
+        {
+          photoLinks.map((photoLink: SanityImageAsset) => (
+            <PhotoCard link={photoLink} />
+          ))
+        }
       </cards>
     </section>
   </main>

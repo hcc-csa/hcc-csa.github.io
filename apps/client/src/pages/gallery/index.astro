@@ -5,6 +5,7 @@ import Hero from '@layouts/Hero.astro'
 import GalleryCard from '@components/GalleryCard.astro'
 import Footer from '@components/Footer.astro'
 import { sanityClient } from 'sanity:client'
+import type { Album } from '@utilities/sanity.types'
 
 // import { albums } from '@utilities/dummyData'
 
@@ -95,7 +96,7 @@ const albums = await sanityClient.fetch(
       class='container relative z-[5] flex h-full max-w-screen-xl flex-col items-center gap-8'
     >
       <cards class='flex w-full flex-wrap gap-5 px-2'>
-        {albums && albums.map((album) => <GalleryCard data={album} />)}
+        {albums && albums.map((album: Album) => <GalleryCard data={album} />)}
       </cards>
     </section>
   </main>

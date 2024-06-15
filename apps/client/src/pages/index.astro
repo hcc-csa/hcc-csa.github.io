@@ -8,13 +8,20 @@ import AboutUsSection from '@layouts/AboutUsSection.astro'
 
 import { sanityClient } from 'sanity:client'
 
+import type { Event } from '@utilities/sanity.types'
+
 const events = await sanityClient.fetch(
   `*[_type == "event" && defined(slug)] | order(date desc)`
 )
 
 const upcomingEvents = events
-  .filter((event) => new Date(event.date) > new Date())
-  .sort((a, b) => new Date(a.date) - new Date(b.date))
+  .filter((event: Event) => event.date && new Date(event.date) > new Date())
+  .sort(
+    (a: Event, b: Event) =>
+      a.date &&
+      b.date &&
+      new Date(a.date).getTime() - new Date(b.date).getTime()
+  )
 ---
 
 <Layout title='Computer Science Association'>

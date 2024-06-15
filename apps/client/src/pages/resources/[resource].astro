@@ -3,7 +3,7 @@ import Layout from '@layouts/Layout.astro'
 import Header from '@components/Header.astro'
 import Hero from '@layouts/Hero.astro'
 import Footer from '@components/Footer.astro'
-
+import type { Resources } from '@utilities/sanity.types'
 // import { resources } from '@utilities/dummyData'
 // import { format } from 'fecha'
 
@@ -13,16 +13,16 @@ export async function getStaticPaths() {
   const resources = await sanityClient.fetch(
     `*[_type == "resources" && defined(slug)]`
   )
-  return resources.map((resource_set: { slug: any }) => {
+  return resources.map((resource_set: Resources) => {
     return {
-      params: { resource: resource_set.slug.current },
+      params: { resource: resource_set.slug?.current },
       props: { resourceData: resource_set }
     }
   })
 }
 
 const { resource } = Astro.params
-const { resourceData } = Astro.props
+const { resourceData } = Astro.props as { resourceData: Resources }
 ---
 
 <Layout title='CSA | Resources'>
