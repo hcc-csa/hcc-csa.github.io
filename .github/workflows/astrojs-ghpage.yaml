@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: lts/iron
           cache: 'yarn'
-#          cache-dependency-path: ${{ env.BUILD_PATH }}/*.lock
+          cache-dependency-path: ${{ env.BUILD_PATH }}/*.lock
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
