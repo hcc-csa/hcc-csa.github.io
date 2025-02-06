@@ -1,0 +1,74 @@
+---
+export interface Props {
+  title?: string
+  description?: string
+}
+
+const {
+  title,
+  description = 'This is the official website for the Computer Science'
+} = Astro.props
+
+// import 'index.css'
+import { ScrollObserver } from 'astro-scroll-observer'
+---
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <ScrollObserver />
+    <meta charset='UTF-8' />
+    <meta name='description' content={description} />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <script
+      type='module'
+      src='https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js'
+    ></script>
+    <script
+      nomodule
+      src='https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js'></script>
+    <meta name='generator' content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class='min-h-screen text-white'>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  scroll-behavior: smooth !important;
+}
+
+@media screen and (min-width: 768px) {
+  .csa-navbar {
+    transition: 500ms;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 9999 !important;
+  }
+
+  html[data-is-top='true'] .csa-navbar {
+    background-color: transparent;
+    backdrop-filter: blur(0px);
+  }
+
+  html[data-is-scrolling-up='true'][data-is-top='false'] .csa-navbar {
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+
+  html[data-is-scrolling-up='false'][data-is-top='false'] .csa-navbar {
+    translate: 0 -3rem;
+  }
+}
+.dark-overlay {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+</style>

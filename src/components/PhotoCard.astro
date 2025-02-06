@@ -1,0 +1,27 @@
+---
+import imageUrlBuilder from '@sanity/image-url'
+import { sanityClient } from 'sanity:client'
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
+const builder = imageUrlBuilder(sanityClient)
+
+function urlFor(source: SanityImageSource) {
+  return builder.image(source)
+}
+const { link } = Astro.props
+---
+
+<card
+  class='card relative aspect-square min-w-[250px] shrink-0 grow-0 basis-full cursor-pointer overflow-hidden rounded-md sm:basis-22.5/100'
+>
+  <img
+    src={link && urlFor(link)}
+    alt='event that happened'
+    class='h-full w-full object-cover transition duration-700'
+  />
+</card>
+
+<style>
+  .card:hover img {
+    transform: scale(1.2);
+  }
+</style>

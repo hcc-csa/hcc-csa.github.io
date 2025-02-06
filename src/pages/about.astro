@@ -1,0 +1,157 @@
+---
+import Layout from '@layouts/Layout.astro'
+import Header from '@components/Header.astro'
+import Footer from '@components/Footer.astro'
+import Hero from '@layouts/Hero.astro'
+import ProfileCard from '@components/ProfileCard.astro'
+
+import { sanityClient } from 'sanity:client'
+
+const officials = await sanityClient.fetch(
+  `*[_type == "official"] | order(level asc)`
+)
+---
+
+<Layout title='Computer Science Association'>
+  <Header page='home' />
+  <Hero>
+    <section
+      class='container relative z-[5] mt-10 flex h-full max-w-screen-xl flex-col justify-end gap-8 px-0 py-24'
+    >
+      <h1 class='text-4xl font-extrabold leading-snug text-white sm:text-7xl'>
+        <div
+          class='text-shadow-csa inline-block bg-gradient-to-b text-teal-400'
+        >
+          About
+        </div>
+      </h1>
+      <h3 class='text-md max-w-xl text-sm leading-8 text-white sm:text-base'>
+        Learn more about the Computer Science Association (CSA) and our mission
+        to cultivate a dynamic community of innovators, learners, and leaders in
+        the field of technology. Explore our history, values, and the dedicated
+        individuals driving our vision forward.
+      </h3>
+      <buttons class='mt-5 flex flex-col gap-5 sm:flex-row'>
+        <a
+          href='/register'
+          class='transform rounded-md bg-teal-400 px-16 py-3 font-bold shadow-csa transition duration-200 hover:scale-105'
+          >Join Now</a
+        >
+        <button
+          class='flex transform items-center justify-center gap-3 rounded-md border border-white px-6 py-3 font-semibold transition duration-200 hover:scale-105'
+        >
+          <ion-icon name='caret-down-circle-outline' class='text-2xl'
+          ></ion-icon>
+          Explore
+        </button>
+      </buttons>
+    </section>
+  </Hero>
+  <main
+    class='container relative flex w-full max-w-none flex-col items-center px-6 py-12'
+  >
+    <section
+      class='container relative z-[5] flex h-full max-w-screen-xl flex-col items-center gap-8'
+    >
+      <header
+        class='flex w-full items-center gap-3 font-extrabold text-slate-300'
+      >
+        <h2 class='text-xl tracking-widest'># ABOUT US</h2>
+      </header>
+      <cards class='flex w-full flex-wrap justify-between gap-5 px-2 py-6'>
+        <card
+          class='relative mt-2 h-64 w-full min-w-[320px] max-w-[410px] flex-1 cursor-pointer rounded-md p-6 shadow-md transition duration-200 hover:scale-[1.02] sm:min-w-[400px] md:min-w-[400px]'
+        >
+          <element class='absolute left-1/2 top-0 z-0 w-full -translate-x-1/2'>
+            <img class='w-full' src='/images/card_grid.svg' alt='card grid' />
+          </element>
+          <content
+            class='relative z-[1] flex h-full flex-col justify-end gap-2'
+          >
+            <tag
+              class='flex w-fit items-center gap-2 rounded-full bg-teal-400 px-2 py-2 text-sm font-medium'
+            >
+              <ion-icon name='rocket' class='text-xl'></ion-icon>
+            </tag>
+            <h1 class='text-2xl font-extrabold text-slate-800'>
+              Mission Statement
+            </h1>
+            <p class='text-sm font-light text-slate-800'>
+              CSA trains, prepares and unites students for the ever-changing
+              technological frontiers to ensure that our members are the
+              pioneers of new technologies
+            </p>
+          </content>
+        </card>
+        <card
+          class='relative mt-2 h-64 w-full min-w-[320px] max-w-[410px] flex-1 cursor-pointer rounded-md p-6 shadow-md transition duration-200 hover:scale-[1.02] sm:min-w-[400px] md:min-w-[400px]'
+        >
+          <element class='absolute left-1/2 top-0 z-0 w-full -translate-x-1/2'>
+            <img class='w-full' src='/images/card_grid.svg' alt='card grid' />
+          </element>
+          <content
+            class='relative z-[1] flex h-full flex-col justify-end gap-2'
+          >
+            <tag
+              class='flex w-fit items-center gap-2 rounded-full bg-teal-400 px-2 py-2 text-sm font-medium'
+            >
+              <ion-icon name='eye' class='text-xl'></ion-icon>
+            </tag>
+            <h1 class='text-2xl font-extrabold text-slate-800'>Vision</h1>
+            <p class='text-sm font-light text-slate-800'>
+              CSA visons a future where our members become futurists and creates
+              disruption in industries through digitalization or automation
+            </p>
+          </content>
+        </card>
+        <card
+          class='relative mt-2 h-64 w-full min-w-[320px] max-w-[410px] flex-1 cursor-pointer rounded-md p-6 shadow-md transition duration-200 hover:scale-[1.02] sm:min-w-[400px] md:min-w-[400px]'
+        >
+          <element class='absolute left-1/2 top-0 z-0 w-full -translate-x-1/2'>
+            <img class='w-full' src='/images/card_grid.svg' alt='card grid' />
+          </element>
+          <content
+            class='relative z-[1] flex h-full flex-col justify-end gap-2'
+          >
+            <tag
+              class='flex w-fit items-center gap-2 rounded-full bg-teal-400 px-2 py-2 text-sm font-medium'
+            >
+              <ion-icon name='shield' class='text-xl'></ion-icon>
+            </tag>
+            <h1 class='text-2xl font-extrabold text-slate-800'>Values</h1>
+            <p class='text-sm font-light text-slate-800'>
+              At CSA, we inspire through innovation, overcome challenges, and
+              disrupt norms to forge a future defined by limitless possibilities
+            </p>
+          </content>
+        </card>
+      </cards>
+      <line class='h-px w-full bg-slate-200'></line>
+    </section>
+  </main>
+  <main
+    class='container relative flex w-full max-w-none flex-col items-center px-6 py-12'
+  >
+    <section
+      class='container relative z-[5] flex h-full max-w-screen-xl flex-col items-center gap-8'
+    >
+      <content class='flex w-full flex-col justify-between md:flex-row'>
+        <h1
+          class='text-4xl font-extrabold leading-snug text-slate-800 sm:text-6xl'
+        >
+          Board of Officials
+        </h1>
+      </content>
+      <cards class='flex w-full flex-wrap gap-5 px-2'>
+        {officials.map((official: any) => <ProfileCard data={official} />)}
+      </cards>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .text-shadow-csa {
+    text-shadow: 0 0 15px rgba(58, 178, 178, 0.2);
+  }
+</style>

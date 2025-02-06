@@ -1,0 +1,67 @@
+---
+import Layout from '@layouts/Layout.astro'
+import Header from '@components/Header.astro'
+import Hero from '@layouts/Hero.astro'
+import Footer from '@components/Footer.astro'
+import PhotoCard from '@components/PhotoCard.astro'
+
+import { sanityClient } from 'sanity:client'
+import type { Album } from '@utilities/sanity.types'
+
+export async function getStaticPaths() {
+  const albums = await sanityClient.fetch(
+    `*[_type == "album" && defined(slug)]`
+  )
+  return albums.map((album: Album) => {
+    return {
+      params: { album: album.slug?.current },
+      props: { albumData: album }
+    }
+  })
+}
+
+const { album } = Astro.params
+const { albumData } = Astro.props as { albumData: Album }
+---
+
+<Layout title='CSA | Gallery'>
+  <Header page='gallery' />
+  <Hero>
+    <section
+      class='container relative z-[5] mt-20 flex h-full max-w-screen-xl flex-col justify-end gap-8 px-0 py-12'
+    >
+      <buttons class='mt-10 flex flex-col gap-5 sm:flex-row'>
+        <a
+          class='flex transform items-center justify-center gap-3 rounded-md font-semibold transition duration-200 hover:scale-105'
+          href='/gallery'
+        >
+          <ion-icon name='arrow-back-outline' class='text-2xl'></ion-icon>
+          Back to Gallery
+        </a>
+      </buttons>
+      <h1 class='text-4xl font-extrabold leading-snug text-white sm:text-7xl'>
+        <div
+          class='text-shadow-csa inline-block bg-gradient-to-b text-teal-400'
+        >
+          {albumData.title}
+        </div>
+        <h3 class='text-md max-w-xl text-sm leading-8 text-white sm:text-base'>
+          {albumData.description}
+        </h3>
+      </h1>
+    </section>
+  </Hero>
+
+  <main
+    class='container relative flex w-full max-w-none flex-col items-center px-6 py-12'
+  >
+    <section
+      class='container relative z-[5] flex h-full max-w-screen-xl flex-col items-center gap-8'
+    >
+      <cards class='flex w-full flex-wrap gap-5 px-2'>
+        {albumData.photos?.map((photoLink) => <PhotoCard link={photoLink} />)}
+      </cards>
+    </section>
+  </main>
+  <Footer />
+</Layout>

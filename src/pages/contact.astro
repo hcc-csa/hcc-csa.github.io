@@ -1,0 +1,140 @@
+---
+import Layout from '@layouts/Layout.astro'
+import Header from '@components/Header.astro'
+import Hero from '@layouts/Hero.astro'
+import GalleryCard from '@components/GalleryCard.astro'
+import Footer from '@components/Footer.astro'
+---
+
+<Layout title='CSA | Gallery'>
+  <Header page='gallery' />
+  <Hero>
+    <section
+      class='container relative z-[5] mt-10 flex h-full max-w-screen-xl flex-col justify-end gap-8 px-0 py-24'
+    >
+      <h1 class='text-4xl font-extrabold leading-snug text-white sm:text-7xl'>
+        <div
+          class='text-shadow-csa inline-block bg-gradient-to-b text-teal-400'
+        >
+          Contact
+        </div>
+      </h1>
+      <h3 class='text-md max-w-xl text-sm leading-8 text-white sm:text-base'>
+        Catch up with CSA. Reach out to us for inquiries, collaborations, or
+        simply to say hello. We're here to connect!
+      </h3>
+      <buttons class='mt-5 flex flex-col gap-5 sm:flex-row'>
+        <a
+          href='/register'
+          class='transform rounded-md bg-teal-400 px-16 py-3 font-bold shadow-csa transition duration-200 hover:scale-105'
+          >Join Now</a
+        >
+        <button
+          class='flex transform items-center justify-center gap-3 rounded-md border border-white px-6 py-3 font-semibold transition duration-200 hover:scale-105'
+        >
+          <ion-icon name='caret-down-circle-outline' class='text-2xl'
+          ></ion-icon>
+          Explore
+        </button>
+      </buttons>
+    </section>
+  </Hero>
+
+  <main
+    class='container relative flex w-full max-w-none flex-col items-center px-6 py-12'
+  >
+    <section
+      class='container relative z-[6] flex h-full max-w-screen-xl flex-col items-center gap-8'
+    >
+      <form
+        class='absolute right-0 top-[-75px] z-[5] flex h-fit w-full max-w-screen-sm flex-col items-center justify-between gap-3 rounded-md bg-white p-6 shadow-md xl:top-[-350px]'
+      >
+        <input
+          type='text'
+          placeholder='Full Name'
+          required
+          class='w-full flex-1 rounded-md border border-slate-300 px-3 py-4 text-slate-800 outline-none'
+        />
+        <input
+          type='email'
+          placeholder='Email Address'
+          required
+          class='w-full flex-1 rounded-md border border-slate-300 px-3 py-4 text-slate-800 outline-none'
+        />
+        <input
+          type='number'
+          placeholder='Phone Number (optional)'
+          class='w-full flex-1 rounded-md border border-slate-300 px-3 py-4 text-slate-800 outline-none'
+        />
+        <input
+          type='text'
+          placeholder='Subject'
+          required
+          class='w-full flex-1 rounded-md border border-slate-300 px-3 py-4 text-slate-800 outline-none'
+        />
+        <textarea
+          name=''
+          cols='30'
+          rows='8'
+          placeholder='Message (optional)'
+          class='w-full flex-1 rounded-md border border-slate-300 px-3 py-4 text-slate-800 outline-none outline-none'
+        ></textarea>
+        <input
+          type='submit'
+          placeholder='Subject'
+          value='Submit'
+          class='w-full flex-1 rounded-md border bg-teal-400 px-3 py-4 font-extrabold text-white outline-none'
+        />
+      </form>
+      <links
+        class='mb-[-25px] mt-5 flex w-full gap-5 px-3 text-lg font-semibold text-slate-800 md:hidden'
+      >
+        <a href='#' class='font-bold text-teal-400'>Albums</a>
+        <span>/</span>
+        <a href='#'>Photostream</a>
+      </links>
+    </section>
+  </main>
+  <main
+    class='container relative flex w-full max-w-none flex-col items-center px-6 pb-12'
+  >
+    <section
+      class='container relative z-[5] flex h-full max-w-screen-xl flex-col'
+    >
+      <h4 class='mt-[550px] font-bold text-teal-400 xl:mt-0'>
+        For General Inquiries:
+      </h4>
+      <h4 class='max-w-md text-slate-800'>
+        Reach us at dit.csa@hccs.edu and we will try to get back to you as soon
+        as possible
+      </h4>
+      <h4 class='mt-10 font-bold text-teal-400'>
+        Use our link tree for more information:
+      </h4>
+      <img
+        class='mt-3 aspect-square w-32'
+        src='https://upload.wikimedia.org/wikipedia/commons/2/2f/Rickrolling_QR_code.png'
+        alt='Link Tree'
+      />
+      <h4 class='mt-10 font-bold text-teal-400'>Follow Us On</h4>
+      <div class='mt-5 flex w-fit gap-5'>
+        <a href='https://github.com/HCC-Computer-Science-Association'>
+          <ion-icon
+            name='logo-github'
+            class='cursor-pointer text-3xl text-teal-400'></ion-icon>
+        </a>
+        <a href='https://www.linkedin.com/company/compscia/'>
+          <ion-icon
+            name='logo-linkedin'
+            class='cursor-pointer text-3xl text-teal-400'></ion-icon>
+        </a>
+        <a href='https://discord.gg/5Q3zCFMtaK'>
+          <ion-icon
+            name='logo-discord'
+            class='cursor-pointer text-3xl text-teal-400'></ion-icon>
+        </a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

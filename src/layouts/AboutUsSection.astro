@@ -1,0 +1,47 @@
+<main
+  class='container relative flex w-full max-w-none flex-col items-center overflow-hidden bg-black'
+>
+  <section
+    class='container relative z-[5] flex h-full max-w-none flex-col items-center px-6 sm:px-9'
+  >
+    <slot />
+  </section>
+  <element class='absolute bottom-0 left-0 z-[4] opacity-30'>
+    <img
+      class='pulsating-anim'
+      src='/images/concentric_circles.svg'
+      alt='concentric circles'
+    />
+  </element>
+  <element class='absolute right-0 top-0 z-[4] opacity-30'>
+    <img src='/images/grid.svg' alt='grid' />
+  </element>
+  <circle
+    class=`absolute bottom-0 left-0 w-300 h-300 md:w-300 md:h-300 rounded-full bg-indigo-950 z-[1]`
+  ></circle>
+  <circle
+    class=`absolute bottom-[-200px] right-[0px] md:bottom-[0px] md:right-[0px] w-300 h-300 md:w-300 md:h-300  rounded-full bg-sky-400 z-[1]`
+  ></circle>
+  <overlay
+    class='absolute left-0 top-0 z-[2] h-full w-full bg-[#ffffff0d] backdrop-blur-4xl md:backdrop-blur-5xl'
+  ></overlay>
+  <texture
+    class="absolute left-0 top-0 z-[3] h-full w-full bg-[url('/texture.png')] bg-75% opacity-10"
+  ></texture>
+</main>
+
+<style>
+  .pulsating-anim {
+    animation: pulsing 10s ease-in-out infinite alternate forwards;
+    transform-origin: top left;
+  }
+
+  @keyframes pulsing {
+    0% {
+      transform: scale(0.9);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }
+</style>

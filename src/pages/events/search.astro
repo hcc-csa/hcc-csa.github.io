@@ -1,0 +1,115 @@
+---
+import Layout from '@layouts/Layout.astro'
+import Header from '@components/Header.astro'
+import Hero from '@layouts/Hero.astro'
+import EventCard from '@components/EventCard.astro'
+import Footer from '@components/Footer.astro'
+---
+
+<Layout title='Searching Events'>
+  <Header page='events' />
+  <Hero>
+    <section
+      class='container relative z-[5] mt-20 flex h-full max-w-screen-xl flex-col justify-end gap-8 px-0 py-24'
+    >
+      <h1 class='text-4xl font-extrabold leading-snug text-white sm:text-7xl'>
+        Events /
+        <div
+          class='text-shadow-csa inline-block bg-gradient-to-b text-teal-400'
+        >
+          Search
+        </div>
+      </h1>
+      <h3
+        class='text-md mt-5 max-w-xl text-sm leading-8 text-white sm:text-base'
+      >
+        Explore our exciting lineup of <b>events</b> designed to foster learning,
+        <b>collaboration</b>, and <b>innovation</b> within the CSA community. There's
+        something for everyone to <b>engage</b> with and grow their passion for technology.
+      </h3>
+      <buttons class='mt-10 flex flex-col gap-5 sm:flex-row'>
+        <a
+          href='/register'
+          class='transform rounded-md bg-teal-400 px-16 py-3 font-bold shadow-csa transition duration-200 hover:scale-105'
+          >Join Now</a
+        >
+        <button
+          class='flex transform items-center justify-center gap-3 rounded-md border border-white px-6 py-3 font-semibold transition duration-200 hover:scale-105'
+        >
+          <ion-icon name='caret-down-circle-outline' class='text-2xl'
+          ></ion-icon>
+          Explore
+        </button>
+      </buttons>
+    </section>
+  </Hero>
+
+  <main
+    class='container relative flex w-full max-w-none flex-col items-center px-6 py-12'
+  >
+    <section
+      aria-label='Search Results'
+      class='container relative z-[5] flex h-full max-w-screen-xl flex-col items-center gap-8'
+    >
+      <searchbar
+        id='event-searchform'
+        class='absolute left-0 top-[-75px] flex h-[60px] w-full items-center gap-3 rounded-md bg-white px-6 py-3 shadow-md'
+      >
+        <ion-icon
+          name='search-outline'
+          class='text-2xl font-extrabold text-slate-800'></ion-icon>
+        <input
+          type='search'
+          required
+          min='2'
+          name='search'
+          placeholder='Search for events'
+          class='h-full flex-1 text-slate-800 outline-none'
+          id='event-search'
+        />
+        <ion-icon
+          name='filter-outline'
+          class='text-2xl font-extrabold text-slate-800'></ion-icon>
+        <keys class='flex hidden gap-3 md:block'>
+          <kbd
+            class='rounded-md border border-slate-400 px-2 py-1 font-mono text-slate-700 shadow-md'
+            >Ctrl</kbd
+          >
+          <kbd
+            class='rounded-md border border-slate-400 px-2 py-1 font-mono text-slate-700 shadow-md'
+            >K</kbd
+          >
+        </keys>
+      </searchbar>
+      <p class='text-slate-800' id='event-search-readout'></p>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<!-- <script>
+  import DOMPurify from 'dompurify'
+
+  const search = document.getElementById('event-search')
+  const searchReadout = document.getElementById('event-search-readout')
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = DOMPurify.sanitize(
+      new URLSearchParams(window.location.search).get('q')
+    )
+
+    search.value = urlParams
+    searchReadout.textContent = `Search results for "${urlParams}"`
+    search?.focus()
+  })
+
+  search.addEventListener('input', () => {
+    const searchTerm = DOMPurify.sanitize(search.value)
+
+    // search.value = searchTerm
+    searchReadout.textContent = searchTerm
+      ? `Search results for "${searchTerm}"`
+      : 'Waiting for search terms'
+    // search?.focus()
+  })
+</script> -->

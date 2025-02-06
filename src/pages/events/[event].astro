@@ -1,0 +1,156 @@
+---
+import Layout from '@layouts/Layout.astro'
+import Header from '@components/Header.astro'
+import Hero from '@layouts/Hero.astro'
+import Footer from '@components/Footer.astro'
+import imageUrlBuilder from '@sanity/image-url'
+import type { Event } from '@utilities/sanity.types'
+import { format } from 'fecha'
+import { sanityClient } from 'sanity:client'
+
+export async function getStaticPaths() {
+  const events = await sanityClient.fetch(
+    `*[_type == "event" && defined(slug)]`
+  )
+  return events.map((event: Event) => {
+    return {
+      params: { event: event.slug?.current },
+      props: { eventData: event }
+    }
+  })
+}
+
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
+const builder = imageUrlBuilder(sanityClient)
+
+function urlFor(source: SanityImageSource) {
+  return builder.image(source)
+}
+
+const { event } = Astro.params
+const { eventData } = Astro.props as { eventData: Event }
+---
+
+<Layout title='Computer Science Association'>
+  <Header page='events' />
+  <Hero>
+    <section
+      class='container relative z-[5] mt-20 flex h-full max-w-screen-xl flex-col justify-end gap-8 px-0 py-24'
+    >
+      <buttons class='mt-10 flex flex-col gap-5 sm:flex-row'>
+        <a
+          class='flex transform items-center justify-center gap-3 rounded-md font-semibold transition duration-200 hover:scale-105'
+          href='/events'
+        >
+          <ion-icon name='arrow-back-outline' class='text-2xl'></ion-icon>
+          Back to Events
+        </a>
+      </buttons>
+      <h1 class='text-4xl font-extrabold leading-snug text-white sm:text-7xl'>
+        <div
+          class='text-shadow-csa inline-block bg-gradient-to-b text-teal-400'
+        >
+          {eventData.title}
+        </div>
+      </h1>
+    </section>
+  </Hero>
+
+  <main
+    class='container relative flex w-full max-w-none flex-col items-center px-6 py-12'
+  >
+    <section
+      class='container relative z-[5] flex h-full max-w-screen-xl flex-col items-center gap-8'
+    >
+      <header
+        class='mt-5 flex w-full items-center justify-between gap-3 font-extrabold text-slate-300'
+      >
+        <h2 class='text-xl tracking-widest'># EVENT</h2>
+        <tag class='flex h-full items-center gap-3'>
+          <ion-icon
+            name='alarm-outline'
+            class='text-2xl font-extrabold text-slate-800'></ion-icon>
+          <h2 class='flex gap-2 text-xl font-extrabold text-slate-800'>
+            {
+              eventData.date &&
+              new Date(eventData.date).getTime() - new Date().getTime() >= 0
+                ? 'STARTS IN '
+                : ''
+            }
+            <div class='text-teal-400'>
+              {
+                eventData.date &&
+                new Date(eventData.date).getTime() - new Date().getTime() >= 0
+                  ? Math.floor(
+                      (new Date(eventData.date).getTime() -
+                        new Date().getTime()) /
+                        (1000 * 60 * 60 * 24)
+                    ) + ' DAYS'
+                  : 'EVENT OVER'
+              }
+            </div>
+          </h2>
+        </tag>
+      </header>
+      <content class='flex w-full flex-col justify-between md:flex-row'>
+        <section
+          class='container z-[5] flex h-full w-full flex-col justify-end gap-2 px-0 md:gap-8'
+        >
+          <h1
+            class='text-4xl font-extrabold leading-snug text-slate-800 sm:text-5xl'
+          >
+            {eventData.title}
+          </h1>
+        </section>
+      </content>
+      <content class='flex w-full flex-col justify-between gap-14 md:flex-row'>
+        <section
+          class='container z-[5] flex h-full w-1/4 flex-col justify-end gap-2 px-0 md:gap-8'
+        >
+          <img
+            class='w-full'
+            src=`${eventData.image && urlFor(eventData.image)}`
+            alt={eventData.title}
+          />
+        </section>
+        <section
+          class='container z-[5] flex h-full w-3/4 flex-col justify-end gap-2 px-0'
+        >
+          <h3 class='font-extrabold text-teal-400'>DATE & TIME</h3>
+          <h3 class='text-slate-800'>
+            <b
+              >{
+                eventData.date &&
+                  format(new Date(eventData.date), 'MMMM D, YYYY')
+              }</b
+            > at <b
+              >{eventData.date && format(new Date(eventData.date), 'hh:mm a')} -
+              {
+                eventData.time_end &&
+                  format(new Date(eventData.time_end), 'hh:mm a')
+              }</b
+            >
+          </h3>
+          <h3 class='font-extrabold text-teal-400'>VENUE</h3>
+          <h3 class='text-slate-800'>
+            {eventData.address}
+          </h3>
+          <h3 class='font-extrabold text-teal-400'>DESCRIPTION</h3>
+          <h3 class='text-slate-800'>
+            {eventData.description}
+          </h3>
+          <a
+            href=`${eventData.registration_link}`
+            target='_blank'
+            class='mt-5 flex max-w-96 items-center justify-center gap-3 rounded-md border-2 border-teal-400 bg-teal-400 px-6 py-3 font-semibold text-white transition duration-200 hover:scale-105'
+          >
+            Register to this Event
+            <ion-icon name='arrow-forward-circle-outline' class='text-2xl'
+            ></ion-icon>
+          </a>
+        </section>
+      </content>
+    </section>
+  </main>
+  <Footer />
+</Layout>
